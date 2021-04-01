@@ -1,5 +1,5 @@
 body{
-    background-image: url("../Images/aungierst.jpg");
+    background-image: url("../Images/classroom.png");
     background-size: cover;
 
 }
@@ -15,10 +15,9 @@ body{
     font-size: x-large;
 }
 
-/* #logo{
-    margin-left: auto;
-    margin-right: auto;
-} */
+#logo{
+    margin-left: 6em;
+}
 
 /*
 .logInBox {
@@ -32,16 +31,16 @@ body{
 */
 
 
-.fixed-bottom {
+/* .fixed-bottom {
     right: 0;
     bottom: 10;
     left: 10;
     background: rgba(0,0,255,0.8) none repeat scroll 0 0;
     z-index: $zindex-fixed;
-    /*margin-left: ($spacer * .5) !important;*/
+    margin-left: ($spacer * .5) !important;
     margin-right: ($spacer * .5) !important;
     width: 100px; 
     height: 150px; 
-    /*background-color: rgba(0,0,255,0.1);*/
-}
+    background-color: rgba(0,0,255,0.1);
+} */
 
