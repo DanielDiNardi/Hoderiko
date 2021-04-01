@@ -32,16 +32,16 @@ body{
 */
 
 
-.fixed-bottom {
+/* .fixed-bottom {
     right: 0;
     bottom: 10;
     left: 10;
     background: rgba(0,0,255,0.8) none repeat scroll 0 0;
     z-index: $zindex-fixed;
-    /*margin-left: ($spacer * .5) !important;*/
+    margin-left: ($spacer * .5) !important;
     margin-right: ($spacer * .5) !important;
     width: 100px; 
     height: 150px; 
-    /*background-color: rgba(0,0,255,0.1);*/
-}
+    background-color: rgba(0,0,255,0.1);
+} */
 
