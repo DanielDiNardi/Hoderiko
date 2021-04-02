@@ -45,3 +45,24 @@ body{
      height: 150px; 
      background-color: rgba(0,0,255,0.1);
  } */
+
+ .btn-lg {
+    width: 25%;
+    height: 150px;
+    position: absolute;
+    /*bottom: 70px;*/
+    property: bottom;
+    right: 0;
+    font-size: 2.5rem;
+    background-color: rgba(65,105,225,0.8);
+    color: white;
+    clip-path: polygon(0 0, 0 100%, 100% 100%, 100% 15%, 90% 0);
+    border-radius: 0 !important;
+    z-index: fixed;
+    display: inline-block;
+ } 
+
+ .btn-lg:hover {
+     background-color: rgba(61,93,190,0.8);
+ }
+
