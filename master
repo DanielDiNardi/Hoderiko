@@ -1,0 +1,64 @@
+[1mdiff --git a/CSS/style.css b/CSS/style.css[m
+[1mindex 8280fe1..5152855 100644[m
+[1m--- a/CSS/style.css[m
+[1m+++ b/CSS/style.css[m
+[36m@@ -1,51 +1,5 @@[m
+ body{[m
+     background-image: url("../Images/classroom.png");[m
+[31m-<<<<<<< HEAD[m
+[31m-    background-size: cover;[m
+[31m-[m
+[31m-}[m
+[31m-[m
+[31m-#topBar{[m
+[31m-    width: 100%;[m
+[31m-    height: 150px;[m
+[31m-    background: rgba(255, 255, 255, 0.8) ;[m
+[31m-}[m
+[31m-[m
+[31m-#login{[m
+[31m-    margin-left: 2em;[m
+[31m-    font-size: x-large;[m
+[31m-}[m
+[31m-[m
+[31m-#logo{[m
+[31m-    margin-left: 6em;[m
+[31m-}[m
+[31m-[m
+[31m-/*[m
+[31m-.logInBox {[m
+[31m-    position: absolute;[m
+[31m-    background: rgba(0,0,255,0.8) none repeat scroll 0 0;[m
+[31m-    color: white;[m
+[31m-    width: 100%;[m
+[31m-    text-align: right;[m
+[31m-    margin-right: ($spacer * .5) !important;[m
+[31m-}[m
+[31m-*/[m
+[31m-[m
+[31m-[m
+[31m-/* .fixed-bottom {[m
+[31m-    right: 0;[m
+[31m-    bottom: 10;[m
+[31m-    left: 10;[m
+[31m-    background: rgba(0,0,255,0.8) none repeat scroll 0 0;[m
+[31m-    z-index: $zindex-fixed;[m
+[31m-    /*margin-left: ($spacer * .5) !important;*/[m
+[31m-    margin-right: ($spacer * .5) !important;[m
+[31m-    width: 100px; [m
+[31m-    height: 150px; [m
+[31m-    /*background-color: rgba(0,0,255,0.1);*/[m
+[31m-} */[m
+[31m-[m
+[31m-=======[m
+      background-size: 100% 100%;[m
+      background-repeat: no-repeat;[m
+      background-attachment: fixed;[m
+[36m@@ -90,5 +44,4 @@[m [mbody{[m
+      width: 100px; [m
+      height: 150px; [m
+      background-color: rgba(0,0,255,0.1);[m
+[31m- } */[m
+[31m->>>>>>> master[m
+[32m+[m[32m } */[m
+\ No newline at end of file[m
