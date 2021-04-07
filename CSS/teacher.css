@@ -1,0 +1,27 @@
+body{
+    background-image: url("../Images/lecture2.png");
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+ 
+}
+ 
+ #topBar{
+     width: 100%;
+     height: auto;
+     background: rgba(255, 255, 255, 0.7) ;
+ }
+ 
+ #logo{
+     margin-left: 6em;
+ }
+
+ .loginFormCont{
+    background: rgba(255, 255, 255, 0.9);
+    margin-top: 1em;
+    bottom: 0;
+    width: fit-content;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 5%;
+ }

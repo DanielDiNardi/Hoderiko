@@ -14,6 +14,21 @@ app.get('/', function(req, res){
     res.sendFile(__dirname + '/HTML/index.html');
 });
 
+app.get('/role', function(req, res){
+    res.sendFile(__dirname + '/HTML/role.html');
+});
+
+app.get('/adminLogIn', function(req, res){
+    res.sendFile(__dirname + '/HTML/adminLogIn.html');
+});
+
+app.get('/teacherLogIn', function(req, res){
+    res.sendFile(__dirname + '/HTML/teacherLogIn.html');
+});
+
+app.get('/studentLogIn', function(req, res){
+    res.sendFile(__dirname + '/HTML/studentLogIn.html');
+});
 // app.post('/', (req, res) => {
 //     res.send("POST Request Called")
 // })

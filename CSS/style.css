@@ -1,55 +1,21 @@
 body{
     background-image: url("../Images/classroom.png");
-     background-size: 100% 100%;
-     background-repeat: no-repeat;
-     background-attachment: fixed;
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
  
- }
+}
  
  #topBar{
      width: 100%;
-     height: 150px;
+     height: auto;
      background: rgba(255, 255, 255, 0.7) ;
  }
- 
- #login{
-     margin-left: 2em;
-     font-size: x-large;
-     color: black;
- }
- #login.visited{
-    color: blue;
-}
  
  #logo{
      margin-left: 6em;
  }
  
- /*
- .logInBox {
-     position: absolute;
-     background: rgba(0,0,255,0.8) none repeat scroll 0 0;
-     color: white;
-     width: 100%;
-     text-align: right;
-     margin-right: ($spacer * .5) !important;
- }
- */
- 
- 
- /* .fixed-bottom {
-     right: 0;
-     bottom: 10;
-     left: 10;
-     background: rgba(0,0,255,0.8) none repeat scroll 0 0;
-     z-index: $zindex-fixed;
-     margin-left: ($spacer * .5) !important;
-     margin-right: ($spacer * .5) !important;
-     width: 100px; 
-     height: 150px; 
-     background-color: rgba(0,0,255,0.1);
- } */
-
  .btn-lg {
     width: 25%;
     height: 150px;
@@ -69,3 +35,44 @@ body{
      background-color: rgba(61,93,190,0.8);
  }
 
+
+#imageFilter{
+    min-width: 100vh;
+    width: 100%;
+    min-height: 75vh;
+    height: 100%;
+    background: rgba(255, 255, 255, 0.7);
+}
+
+#loginbuttonA {
+    height: 65%;
+    font-size: 1.5em;
+    left: 5%;
+}
+
+#loginbuttonT {
+    height: 65%;
+    font-size: 1.5em;
+    background-color: rgba(114,190,61,0.8);
+    left: 37.5%;
+}
+
+#loginbuttonT:hover {
+    background-color: rgba(92,150,51,0.8);
+
+}
+
+#loginbuttonS {
+    height: 65%;
+    font-size: 1.5em;
+    left: 70%;
+    background-color: rgba(44,190,237,0.8);
+}
+
+#loginbuttonS:hover {
+background-color: rgba(46,171,211,0.8);
+}
+
+.bigText{
+    font-size: 3em;
+}
