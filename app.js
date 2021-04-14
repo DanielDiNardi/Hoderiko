@@ -11,6 +11,7 @@ var userID;
 
 const userLogIn = "SELECT id, email, password FROM User WHERE email = $1;";
 const findUserbyID = "SELECT id FROM User WHERE id = $1;";
+const userData = "SELECT * FROM User WHERE id = $1;";
 
 const app = express();
 
@@ -62,8 +63,21 @@ app.get('/studentDashboard', isAuthenticatedStudent(), isRole(ROLE.STUDENT), fun
 });
 
 function setUser(req, res, next) {
+    const setUserRole = db.prepare(userData);
     if (userID) {
-        req.user = userID;
+        setUserRole.get(userID, function(err, row){
+            if (err) { 
+                return done(err); 
+            }
+            if (!row){
+                return done(null, false, { message: 'User not found.' }); 
+            }
+            console.log("Row queried to get all data from user id: ");
+            console.log(row);
+            req.user = row;
+            console.log("User role displaying correctly in app.js: " + req.user.role);
+            return req.user;
+        });
     }
     next();
 }
@@ -77,7 +91,6 @@ passport.use(new LocalStrategy( { usernameField: 'email', passwordField: 'passwo
             if(password == row.password) {
                 done(null, { id: row.id });
                     userID = row.id;
-                    console.log(userID);
             }
             else  {
                 return done(null, false, { message: 'Incorrect password' });
