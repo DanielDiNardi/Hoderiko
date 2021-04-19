@@ -9,7 +9,7 @@ body{
  #topBar{
      width: 100%;
      height: auto;
-     background: rgba(255, 255, 255, 0.7) ;
+     background: rgba(255, 255, 255, 0.9) ;
  }
  
  #logo{
@@ -25,3 +25,34 @@ body{
     margin-right: auto;
     padding: 5%;
  }
+
+ .sidebar {
+    position: fixed;
+    width: 15%;
+    padding-top: 7em;
+    top: 0.1em;
+    bottom: 0%;
+    right: 0%;
+    background: rgba(255, 255, 255, 0.0);
+}
+
+.wrap {
+    padding-top: 7em;
+    position: relative;
+}
+
+#link {
+    height: 25%;
+    background: rgba(255, 255, 255, 0.7);
+    color: black;
+    text-align: center;
+}
+
+#link:hover {
+    background: rgba(61,93,190,0.8);
+    color: black;
+}
+
+.paddit {
+    padding-top: 2em;
+}
