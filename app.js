@@ -1,5 +1,3 @@
-// import { AbilityBuilder, Ability } from '@casl/ability';
-
 const express = require('express');
 const bodyParser = require('body-parser');
 const sqlite3 = require('sqlite3');
@@ -7,8 +5,6 @@ const db = new sqlite3.Database('HAMDatabase.db');
 const passport = require('passport');
 const session = require('express-session');
 const LocalStrategy = require('passport-local').Strategy;
-const { AbilityBuilder, Ability } = require('casl');
-
 
 var userID;
 var userRole;
@@ -19,6 +15,30 @@ const STUDENT = 'ROLE.STUDENT';
 const userLogIn = "SELECT id, email, password, role FROM User WHERE email = $1;";
 const findUserbyID = "SELECT id FROM User WHERE id = $1;";
 const selectModulesByStudent = "SELECT mName, mID FROM Course JOIN Module USING(mID) WHERE sID = $1;";
+
+
+module.exports = {
+    userLogInCheck: function(){
+        return userLogIn;
+    },
+
+    findUserbyIDCheck: function(){
+        return findUserbyID;
+    },
+
+    selectModulesByStudentCheck: function(){
+        return selectModulesByStudent;
+    },
+
+    studentMickeyExists: function(){
+        const query = db.prepare(userLogIn);
+        query.get("micky@tudublin.ie", function(err, row) {
+            if("letmeinplz" == row.password) {
+                return row.password;
+            }
+        });
+    }
+}
 
 const app = express();
 
@@ -235,3 +255,4 @@ app.post("/studentModules", function(req, res){
     });
     
 });
+

@@ -4,17 +4,20 @@
   "description": "HAM server",
   "main": "app.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "mocha"
   },
   "author": "Hoderiko",
   "license": "ISC",
   "dependencies": {
     "@casl/ability": "^5.2.2",
     "body-parser": "^1.19.0",
+    "chai": "^4.3.4",
+    "chai-http": "^4.3.0",
     "csv-reader": "^1.0.7",
     "express": "^4.17.1",
     "express-session": "^1.17.1",
     "fs": "0.0.1-security",
+    "mocha": "^8.3.2",
     "passport": "^0.4.1",
     "passport-local": "^1.0.0",
     "sqlite3": "^5.0.2"
