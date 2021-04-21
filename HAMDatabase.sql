@@ -67,7 +67,15 @@ INSERT INTO User (id, name, email, password, role) VALUES("S123456", "Micky", "m
 --Test Modules
 INSERT INTO Module (mID, mName, mDesc, mYear, tID) VALUES("M123", "Global Classroom", "Lorem Ipsum", "3", "T123456");
 INSERT INTO Module (mID, mName, mDesc, mYear, tID) VALUES("M124", "Web Development", "Lorem Ipsum", "3", "T123456");
+INSERT INTO Module (mID, mName, mDesc, mYear, tID) VALUES("M125", "System Security", "Lorem Ipsum", "3", "T123456");
+INSERT INTO Module (mID, mName, mDesc, mYear, tID) VALUES("M126", "Computer Architecture", "Lorem Ipsum", "3", "T123456");
+INSERT INTO Module (mID, mName, mDesc, mYear, tID) VALUES("M127", "Testing in Python", "Lorem Ipsum", "3", "T123456");
+INSERT INTO Module (mID, mName, mDesc, mYear, tID) VALUES("M128", "Mobile Software Development", "Lorem Ipsum", "3", "T123456");
 
 --Test Courses
 INSERT INTO Course (mID, sID, cName, cDesc, cYear) VALUES("M123", "S123456", "Computer Science", "Lorem Ipsum", "3");
 INSERT INTO Course (mID, sID, cName, cDesc, cYear) VALUES("M124", "S123456", "Computer Science", "Lorem Ipsum", "3");
+INSERT INTO Course (mID, sID, cName, cDesc, cYear) VALUES("M125", "S123456", "Computer Science", "Lorem Ipsum", "3");
+INSERT INTO Course (mID, sID, cName, cDesc, cYear) VALUES("M126", "S123456", "Computer Science", "Lorem Ipsum", "3");
+INSERT INTO Course (mID, sID, cName, cDesc, cYear) VALUES("M127", "S123456", "Computer Science", "Lorem Ipsum", "3");
+INSERT INTO Course (mID, sID, cName, cDesc, cYear) VALUES("M128", "S123456", "Computer Science", "Lorem Ipsum", "3");

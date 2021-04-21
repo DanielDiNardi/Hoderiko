@@ -3,7 +3,6 @@ body{
     background-size: 100% 100%;
     background-repeat: no-repeat;
     background-attachment: fixed;
- 
 }
  
  #topBar{
@@ -26,7 +25,7 @@ body{
     padding: 5%;
  }
 
- .sidebar {
+.sidebar {
     position: fixed;
     width: 15%;
     padding-top: 7em;
@@ -36,10 +35,10 @@ body{
     background: rgba(255, 255, 255, 0.0);
 }
 
-.wrap {
+/* .wrap {
     padding-top: 7em;
     position: relative;
-}
+} */
 
 #link {
     height: 25%;
@@ -55,4 +54,21 @@ body{
 
 .paddit {
     padding-top: 2em;
+}
+
+#listHeader{
+    background: rgba(255, 255, 255, 0.7);
+    margin-left: 12em;
+    margin-right: 12em;
+    margin-top: 0;
+    height: 100%;
+    min-height: 80vh;
+}
+
+#moduleCard {
+    width: 12rem;
+    margin-left: 3em;
+    margin-top: 2em;
+    margin-bottom: 2em;
+    margin-right: 3em;
 }

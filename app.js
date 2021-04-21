@@ -18,6 +18,7 @@ const STUDENT = 'ROLE.STUDENT';
 
 const userLogIn = "SELECT id, email, password, role FROM User WHERE email = $1;";
 const findUserbyID = "SELECT id FROM User WHERE id = $1;";
+const selectModulesByStudent = "SELECT mName, mID FROM Course JOIN Module USING(mID) WHERE sID = $1;";
 
 const app = express();
 
@@ -67,15 +68,19 @@ app.get('/studentDashboard', isAuthenticatedStudent(), isRole(STUDENT), function
     res.sendFile(__dirname + '/HTML/studentDashboard.html');
 });
 
-app.get('/modulesTab', function (req, res) {
+app.get('/studentModules', isAuthenticatedStudent(), isRole(STUDENT), function(req, res) {
+    res.sendFile(__dirname + '/HTML/studentModules.html');
+});
+
+app.get('/modulesTab', isAuthenticatedStudent(), isRole(ADMIN), function (req, res) {
     res.sendFile(__dirname + '/HTML/modulesTab.html');
 });
 
-app.get('/teacherTab', function (req, res) {
+app.get('/teacherTab', isAuthenticatedStudent(), isRole(ADMIN), function (req, res) {
     res.sendFile(__dirname + '/HTML/teacherTab.html');
 });
 
-app.get('/studentsTab', function (req, res) {
+app.get('/studentsTab', isAuthenticatedStudent(), isRole(ADMIN), function (req, res) {
     res.sendFile(__dirname + '/HTML/studentsTab.html');
 });
 
@@ -213,4 +218,19 @@ app.post('/studentLogIn', function(req, res, next) {
             return res.redirect('/studentDashboard');
         });
     })(req, res, next);
+});
+
+app.post("/studentModules", function(req, res){
+    const query = db.prepare(selectModulesByStudent);
+    console.log("Inside studentModules post");
+    query.all(userID, function(error, rows) {
+        if (error) {
+            console.log(error);
+            res.status(400).json(error);
+        } else {
+            console.log(rows);
+            res.status(200).json(rows);
+        }
+    });
+    
 });
