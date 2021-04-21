@@ -9,6 +9,7 @@
   "author": "Hoderiko",
   "license": "ISC",
   "dependencies": {
+    "@casl/ability": "^5.2.2",
     "body-parser": "^1.19.0",
     "casl": "^1.1.0",
     "csv-reader": "^1.0.7",

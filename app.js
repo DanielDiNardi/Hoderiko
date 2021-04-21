@@ -67,9 +67,23 @@ app.get('/studentDashboard', isAuthenticatedStudent(), isRole(STUDENT), function
     res.sendFile(__dirname + '/HTML/studentDashboard.html');
 });
 
+<<<<<<< HEAD
 app.get('/modulesTab', function(req, res){
     res.sendFile(__dirname + '/HTML/modulesTab.html');
 });
+=======
+app.get('/modulesTab', function (req, res) {
+    res.sendFile(__dirname + '/HTML/modulesTab.html');
+});
+
+app.get('/teacherTab', function (req, res) {
+    res.sendFile(__dirname + '/HTML/teacherTab.html');
+});
+
+app.get('/studentsTab', function (req, res) {
+    res.sendFile(__dirname + '/HTML/studentsTab.html');
+});
+>>>>>>> b7a01b35e5931ffce26cdcd30135e7921898fb82
 
 passport.use(new LocalStrategy( { usernameField: 'email', passwordField: 'password'},
     function(email, password, done) {
@@ -108,6 +122,7 @@ function isAuthenticatedTeacher() {
         res.redirect('/teacherLogIn');
     }
 }
+<<<<<<< HEAD
 
 function isAuthenticatedStudent() {
     return function(req, res, next) {
@@ -118,6 +133,18 @@ function isAuthenticatedStudent() {
     }
 }
 
+=======
+
+function isAuthenticatedStudent() {
+    return function(req, res, next) {
+        if (req.isAuthenticated()) {
+            return next()
+        }
+        res.redirect('/studentLogIn');
+    }
+}
+
+>>>>>>> b7a01b35e5931ffce26cdcd30135e7921898fb82
 function isRole(roleRequired) {
     return function(req, res, next) {
         if(userRole != roleRequired){
