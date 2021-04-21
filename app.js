@@ -72,7 +72,7 @@ app.get('/studentModules', isAuthenticatedStudent(), isRole(STUDENT), function(r
     res.sendFile(__dirname + '/HTML/studentModules.html');
 });
 
-app.get('/modulesTab', isAuthenticatedStudent(), isRole(ADMIN), function (req, res) {
+app.get('/modulesTab', function (req, res) {
     res.sendFile(__dirname + '/HTML/modulesTab.html');
 });
 
@@ -86,6 +86,7 @@ app.get('/studentsTab', isAuthenticatedStudent(), isRole(ADMIN), function (req, 
 
 passport.use(new LocalStrategy( { usernameField: 'email', passwordField: 'password'},
     function(email, password, done) {
+        console.log("in local strategy");
         const query = db.prepare(userLogIn);
         query.get(email, function(err, row) {
             if (err) { return done(err); }
