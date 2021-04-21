@@ -25,3 +25,19 @@ body{
     margin-right: auto;
     padding: 5%;
  }
+
+
+.sidebar{
+    background-color:#eee;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    text-align: center;
+}
+
+.wrap {
+    height: 100%;
+    position: relative;
+}
+
