@@ -79,3 +79,16 @@ INSERT INTO Course (mID, sID, cName, cDesc, cYear) VALUES("M125", "S123456", "Co
 INSERT INTO Course (mID, sID, cName, cDesc, cYear) VALUES("M126", "S123456", "Computer Science", "Lorem Ipsum", "3");
 INSERT INTO Course (mID, sID, cName, cDesc, cYear) VALUES("M127", "S123456", "Computer Science", "Lorem Ipsum", "3");
 INSERT INTO Course (mID, sID, cName, cDesc, cYear) VALUES("M128", "S123456", "Computer Science", "Lorem Ipsum", "3");
+
+--Test Tests
+INSERT INTO Test (mID, sID, testName, testDate, testResult) VALUES("M126", "S123456", "Computer Architecture Mid-Term Exam", "2021-06-16", 43.6);
+INSERT INTO Test (mID, sID, testName, testDate, testResult) VALUES("M127", "S123456", "Testing in Python Mid-Term Exam", "2021-06-13", 46);
+INSERT INTO Test (mID, sID, testName, testDate, testResult) VALUES("M128", "S123456", "Mobile Software Development Mid-Term Exam", "2021-06-09", 30);
+
+--Test Grades
+INSERT INTO Grade (mID, sID, finalGrade) VALUES("M123", "S123456", 100);
+INSERT INTO Grade (mID, sID, finalGrade) VALUES("M124", "S123456", 56);
+INSERT INTO Grade (mID, sID, finalGrade) VALUES("M125", "S123456", 67);
+INSERT INTO Grade (mID, sID, finalGrade) VALUES("M126", "S123456", 50);
+INSERT INTO Grade (mID, sID, finalGrade) VALUES("M127", "S123456", 53);
+INSERT INTO Grade (mID, sID, finalGrade) VALUES("M128", "S123456", 43);

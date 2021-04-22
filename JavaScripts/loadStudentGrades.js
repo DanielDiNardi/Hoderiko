@@ -1,22 +1,22 @@
 // Sends an empty post to the server to get the character information.
-function viewStudentModules(){
-    const post = $.post('http://localhost:3000/studentModules', 0);
-    console.log("Inside viewStudentModules func");
+function viewStudentGrades(){
+    const post = $.post('http://localhost:3000/studentGrades', 0);
+    console.log("Inside viewStudentGrades func");
     post.done(processRows);
     post.fail(processErrors);
     
 }
 
-// Displays character information as a button.
+// Displays Grades information as a card.
 function processRows(rows, status, xhr) {
     console.log("Inside processRows func");
     for (let i = 0; i < rows.length; i++) {
 
         var div = $(
-            `<div class="card text-center " id="moduleCard"">
+            `<div class="card text-center " id="gradeCard"">
                 <div class="card-body">
                     <p class="card-text">${rows[i].mName}</p>
-                    <p class="card-text">${rows[i].mID}</p>
+                    <p class="card-text">${rows[i].finalGrade}</p>
                 </div>
             </div>`);
 
@@ -30,4 +30,4 @@ function processErrors() {
 }
 
 // Calls viewChar function when the page opens.
-viewStudentModules();
+viewStudentGrades();

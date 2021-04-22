@@ -18,4 +18,14 @@ describe('Database Query Check', function() {
 			assert.equal(query, 'SELECT mName, mID FROM Course JOIN Module USING(mID) WHERE sID = $1;');
 		})
 
+		it('Check selectExamsByStudentCheck', function() {
+			let query = app.selectExamsByStudentCheck();
+			assert.equal(query, 'SELECT testName, testDate, testResult FROM Test WHERE sID = $1;');
+		})
+
+		it('Check selectGradesByStudentCheck', function() {
+			let query = app.selectGradesByStudentCheck();
+			assert.equal(query, 'SELECT mName, finalGrade FROM Grade JOIN Module USING(mID) WHERE sID = $1;');
+		})
+
 })

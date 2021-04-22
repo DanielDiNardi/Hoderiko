@@ -15,6 +15,8 @@ const STUDENT = 'ROLE.STUDENT';
 const userLogIn = "SELECT id, email, password, role FROM User WHERE email = $1;";
 const findUserbyID = "SELECT id FROM User WHERE id = $1;";
 const selectModulesByStudent = "SELECT mName, mID FROM Course JOIN Module USING(mID) WHERE sID = $1;";
+const selectExamsByStudent = "SELECT testName, testDate, testResult FROM Test WHERE sID = $1;";
+const selectGradesByStudent = "SELECT mName, finalGrade FROM Grade JOIN Module USING(mID) WHERE sID = $1;";
 
 
 module.exports = {
@@ -30,14 +32,14 @@ module.exports = {
         return selectModulesByStudent;
     },
 
-    studentMickeyExists: function(){
-        const query = db.prepare(userLogIn);
-        query.get("micky@tudublin.ie", function(err, row) {
-            if("letmeinplz" == row.password) {
-                return row.password;
-            }
-        });
+    selectExamsByStudentCheck: function(){
+        return selectExamsByStudent;
+    },
+
+    selectGradesByStudentCheck: function(){
+        return selectGradesByStudent;
     }
+    
 }
 
 const app = express();
@@ -92,6 +94,14 @@ app.get('/studentModules', isAuthenticatedStudent(), isRole(STUDENT), function(r
     res.sendFile(__dirname + '/HTML/studentModules.html');
 });
 
+app.get('/studentGrades', isAuthenticatedStudent(), isRole(STUDENT), function(req, res) {
+    res.sendFile(__dirname + '/HTML/studentGrades.html');
+});
+
+app.get('/studentExams', isAuthenticatedStudent(), isRole(STUDENT), function (req, res) {
+    res.sendFile(__dirname + '/HTML/studentExams.html');
+});
+
 app.get('/modulesTab', function (req, res) {
     res.sendFile(__dirname + '/HTML/modulesTab.html');
 });
@@ -103,6 +113,8 @@ app.get('/teacherTab', isAuthenticatedStudent(), isRole(ADMIN), function (req, r
 app.get('/studentsTab', isAuthenticatedStudent(), isRole(ADMIN), function (req, res) {
     res.sendFile(__dirname + '/HTML/studentsTab.html');
 });
+
+
 
 passport.use(new LocalStrategy( { usernameField: 'email', passwordField: 'password'},
     function(email, password, done) {
@@ -256,3 +268,32 @@ app.post("/studentModules", function(req, res){
     
 });
 
+app.post("/studentExams", function(req, res){
+    const query = db.prepare(selectExamsByStudent);
+    console.log("Inside studentExams post");
+    query.all(userID, function(error, rows) {
+        if (error) {
+            console.log(error);
+            res.status(400).json(error);
+        } else {
+            console.log(rows);
+            res.status(200).json(rows);
+        }
+    });
+    
+});
+
+app.post("/studentGrades", function(req, res){
+    const query = db.prepare(selectGradesByStudent);
+    console.log("Inside studentGrades post");
+    query.all(userID, function(error, rows) {
+        if (error) {
+            console.log(error);
+            res.status(400).json(error);
+        } else {
+            console.log(rows);
+            res.status(200).json(rows);
+        }
+    });
+    
+});

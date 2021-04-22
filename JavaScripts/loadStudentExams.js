@@ -1,22 +1,23 @@
 // Sends an empty post to the server to get the character information.
 function viewStudentModules(){
-    const post = $.post('http://localhost:3000/studentModules', 0);
-    console.log("Inside viewStudentModules func");
+    const post = $.post('http://localhost:3000/studentExams', 0);
+    console.log("Inside viewStudentExams func");
     post.done(processRows);
     post.fail(processErrors);
     
 }
 
-// Displays character information as a button.
+// Displays Test information as a card.
 function processRows(rows, status, xhr) {
     console.log("Inside processRows func");
     for (let i = 0; i < rows.length; i++) {
 
         var div = $(
-            `<div class="card text-center " id="moduleCard"">
+            `<div class="card text-center " id="examCard"">
                 <div class="card-body">
-                    <p class="card-text">${rows[i].mName}</p>
-                    <p class="card-text">${rows[i].mID}</p>
+                    <p class="card-text">${rows[i].testName}</p>
+                    <p class="card-text">${rows[i].testDate}</p>
+                    <p class="card-text">${rows[i].testResult}</p>
                 </div>
             </div>`);
 
