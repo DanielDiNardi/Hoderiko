@@ -13,17 +13,17 @@ describe('Database Query Check', function() {
 			assert.equal(query, 'SELECT id FROM User WHERE id = $1;');
 		})
 
-		it('Check selectModulesByStudentCheck', function() {
+		it('Check selectModulesByStudent', function() {
 			let query = app.selectModulesByStudentCheck();
 			assert.equal(query, 'SELECT mName, mID FROM Course JOIN Module USING(mID) WHERE sID = $1;');
 		})
 
-		it('Check selectExamsByStudentCheck', function() {
+		it('Check selectExamsByStudent', function() {
 			let query = app.selectExamsByStudentCheck();
 			assert.equal(query, 'SELECT testName, testDate, testResult FROM Test WHERE sID = $1;');
 		})
 
-		it('Check selectGradesByStudentCheck', function() {
+		it('Check selectGradesByStudent', function() {
 			let query = app.selectGradesByStudentCheck();
 			assert.equal(query, 'SELECT mName, finalGrade FROM Grade JOIN Module USING(mID) WHERE sID = $1;');
 		})
