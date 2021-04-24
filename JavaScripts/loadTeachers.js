@@ -1,6 +1,6 @@
 // Sends an empty post to the server to get the character information.
-function viewAdminModules(){
-    const post = $.post('http://localhost:3000/Modules', 0);
+function viewTeachers(){
+    const post = $.post('http://localhost:3000/Teachers', 0);
     console.log("Inside viewAdminModules func");
     post.done(processRows);
     post.fail(processErrors);
@@ -13,11 +13,10 @@ function processRows(rows, status, xhr) {
     for (let i = 0; i < rows.length; i++) {
 
         var div = $(
-            `<div class="card text-center " id="moduleCard"">
+            `<div class="card text-center " id="teacherCard"">
                 <div class="card-body">
-                    <p class="card-text">${rows[i].mName}</p>
-                    <p class="card-text">${rows[i].mDesc}</p>
-                    <p class="card-text">${rows[i].mYear}</p>
+                    <p class="card-text">${rows[i].name}</p>
+                    <p class="card-text">${rows[i].id}</p>
                 </div>
             </div>`);
 
@@ -31,4 +30,4 @@ function processErrors() {
 }
 
 // Calls viewChar function when the page opens.
-viewAdminModules();
+viewTeachers();

@@ -17,6 +17,12 @@ const findUserbyID = "SELECT id FROM User WHERE id = $1;";
 const selectModulesByStudent = "SELECT mName, mID FROM Course JOIN Module USING(mID) WHERE sID = $1;";
 const selectExamsByStudent = "SELECT testName, testDate, testResult FROM Test WHERE sID = $1;";
 const selectGradesByStudent = "SELECT mName, finalGrade FROM Grade JOIN Module USING(mID) WHERE sID = $1;";
+const selectModulesByTeacher = "SELECT mName, mID FROM Module WHERE tID = $1;";
+const selectTeacherStudentGrades = "SELECT name, mName, finalGrade FROM Grade JOIN Module USING(mID) JOIN user on(grade.sId = user.id) WHERE tID = $1;";
+const selectExamsByTeacher = "SELECT testName, testDate, testResult FROM Test JOIN module USING(mID) WHERE tID = $1;";
+const selectAllModules = "SELECT * FROM Module;";
+const selectAllStudents = "SELECT * FROM User WHERE role = 'ROLE.STUDENT';";
+const selectAllTeachers = "SELECT * FROM User WHERE role = 'ROLE.TEACHER';";
 
 
 module.exports = {
@@ -66,6 +72,8 @@ app.get('/loginHub', function(req, res){
     res.sendFile(__dirname + '/HTML/role.html');
 });
 
+// Admin Tabs.
+
 app.get('/adminLogIn', function(req, res){
     res.sendFile(__dirname + '/HTML/adminLogIn.html');
 });
@@ -74,6 +82,20 @@ app.get('/adminDashboard', isAuthenticatedAdmin(), isRole(ADMIN),function(req, r
     res.sendFile(__dirname + '/HTML/adminDashboard.html');
 });
 
+app.get('/Modules', isAuthenticatedAdmin(), isRole(ADMIN),function(req, res) {
+    res.sendFile(__dirname + '/HTML/adminModules.html');
+});
+
+app.get('/Students', isAuthenticatedAdmin(), isRole(ADMIN),function(req, res) {
+    res.sendFile(__dirname + '/HTML/studentsTab.html');
+});
+
+app.get('/Teachers', isAuthenticatedAdmin(), isRole(ADMIN),function(req, res) {
+    res.sendFile(__dirname + '/HTML/teacherTab.html');
+});
+
+// Teacher Tabs.
+
 app.get('/teacherLogIn', function(req, res){
     res.sendFile(__dirname + '/HTML/teacherLogIn.html');
 });
@@ -81,6 +103,20 @@ app.get('/teacherLogIn', function(req, res){
 app.get('/teacherDashboard', isAuthenticatedTeacher(), isRole(TEACHER), function(req, res) {
     res.sendFile(__dirname + '/HTML/teacherDashboard.html');
 });
+
+app.get('/teacherModules', isAuthenticatedTeacher(), isRole(TEACHER), function(req, res) {
+    res.sendFile(__dirname + '/HTML/teacherModules.html');
+});
+
+app.get('/teacherStudentGrades', isAuthenticatedTeacher(), isRole(TEACHER), function(req, res) {
+    res.sendFile(__dirname + '/HTML/teacherStudentGrades.html');
+});
+
+app.get('/teacherExams', isAuthenticatedTeacher(), isRole(TEACHER), function(req, res) {
+    res.sendFile(__dirname + '/HTML/teacherExams.html');
+});
+
+// Student Tab.
 
 app.get('/studentLogIn', function(req, res){
     res.sendFile(__dirname + '/HTML/studentLogIn.html');
@@ -114,11 +150,27 @@ app.get('/studentsTab', isAuthenticatedStudent(), isRole(ADMIN), function (req, 
     res.sendFile(__dirname + '/HTML/studentsTab.html');
 });
 
+app.get("/adminLogout", function (req, res) {
+    req.logout()
+    res.redirect("/loginHub")
+    console.log("You've been logged out")
+});
+
+app.get("/teacherLogout", function (req, res) {
+    req.logout();
+    res.redirect("/loginHub");
+    console.log("You've been logged out");
+});
+
+app.get("/studentLogout", function (req, res) {
+    req.logout();
+    res.redirect("/loginHub");
+    console.log("You've been logged out");
+});
 
 
 passport.use(new LocalStrategy( { usernameField: 'email', passwordField: 'password'},
     function(email, password, done) {
-        console.log("in local strategy");
         const query = db.prepare(userLogIn);
         query.get(email, function(err, row) {
             if (err) { return done(err); }
@@ -167,6 +219,7 @@ function isRole(roleRequired) {
     return function(req, res, next) {
         if(userRole != roleRequired){
             console.log("Incorrect Role");
+            req.logout()
             return res.redirect('/loginHub');
         }
         return next();
@@ -255,7 +308,6 @@ app.post('/studentLogIn', function(req, res, next) {
 
 app.post("/studentModules", function(req, res){
     const query = db.prepare(selectModulesByStudent);
-    console.log("Inside studentModules post");
     query.all(userID, function(error, rows) {
         if (error) {
             console.log(error);
@@ -270,7 +322,6 @@ app.post("/studentModules", function(req, res){
 
 app.post("/studentExams", function(req, res){
     const query = db.prepare(selectExamsByStudent);
-    console.log("Inside studentExams post");
     query.all(userID, function(error, rows) {
         if (error) {
             console.log(error);
@@ -285,8 +336,91 @@ app.post("/studentExams", function(req, res){
 
 app.post("/studentGrades", function(req, res){
     const query = db.prepare(selectGradesByStudent);
-    console.log("Inside studentGrades post");
     query.all(userID, function(error, rows) {
+        if (error) {
+            console.log(error);
+            res.status(400).json(error);
+        } else {
+            console.log(rows);
+            res.status(200).json(rows);
+        }
+    });
+    
+});
+
+app.post("/teacherModules", function(req, res){
+    const query = db.prepare(selectModulesByTeacher);
+    query.all(userID, function(error, rows) {
+        if (error) {
+            console.log(error);
+            res.status(400).json(error);
+        } else {
+            console.log(rows);
+            res.status(200).json(rows);
+        }
+    });
+    
+});
+
+app.post("/teacherStudentGrades", function(req, res){
+    const query = db.prepare(selectTeacherStudentGrades);
+    query.all(userID, function(error, rows) {
+        if (error) {
+            console.log(error);
+            res.status(400).json(error);
+        } else {
+            console.log(rows);
+            res.status(200).json(rows);
+        }
+    });
+    
+});
+
+app.post("/teacherExams", function(req, res){
+    const query = db.prepare(selectExamsByTeacher);
+    query.all(userID, function(error, rows) {
+        if (error) {
+            console.log(error);
+            res.status(400).json(error);
+        } else {
+            console.log(rows);
+            res.status(200).json(rows);
+        }
+    });
+    
+});
+
+app.post("/Modules", function(req, res){
+    const query = db.prepare(selectAllModules);
+    query.all(function(error, rows) {
+        if (error) {
+            console.log(error);
+            res.status(400).json(error);
+        } else {
+            console.log(rows);
+            res.status(200).json(rows);
+        }
+    });
+    
+});
+
+app.post("/Teachers", function(req, res){
+    const query = db.prepare(selectAllTeachers);
+    query.all(function(error, rows) {
+        if (error) {
+            console.log(error);
+            res.status(400).json(error);
+        } else {
+            console.log(rows);
+            res.status(200).json(rows);
+        }
+    });
+    
+});
+
+app.post("/Students", function(req, res){
+    const query = db.prepare(selectAllStudents);
+    query.all(function(error, rows) {
         if (error) {
             console.log(error);
             res.status(400).json(error);

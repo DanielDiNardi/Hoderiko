@@ -4,9 +4,10 @@ DROP TABLE Course;
 DROP TABLE Class;
 DROP TABLE Test;
 DROP TABLE Grade;
+DROP TABLE userAttendedClass;
 
 CREATE TABLE User(
-    id VARCHAR(50),
+    id VARCHAR(50) PRIMARY KEY,
     name VARCHAR(50),
     email VARCHAR(50),
     password VARCHAR(500),
@@ -33,12 +34,24 @@ CREATE TABLE Course(
 );
 
 CREATE TABLE Class(
+    classID VARCHER(50) PRIMARY KEY,
     mID VARCHAR(50),
+    totalStudents NUMBER(3),
     classDate DATE,
     classStartTime TIME,
     classEndTime TIME,
-    attended BOOLEAN,
     FOREIGN KEY(mID) REFERENCES Module(mID)
+);
+
+CREATE TABLE userAttendedClass(
+    sID VARCHER(50),
+    classID VARCHER(50),
+    classJoinTime TIME,
+    serverJoinTime TIME,
+    attended BOOLEAN,
+    reason BOOLEAN DEFAULT false,
+    FOREIGN KEY(classID) REFERENCES Class(classID),
+    FOREIGN KEY(sID) REFERENCES User(id)
 );
 
 CREATE TABLE Test(
