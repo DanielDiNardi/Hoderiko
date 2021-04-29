@@ -168,6 +168,13 @@ app.get("/studentLogout", function (req, res) {
     console.log("You've been logged out");
 });
 
+app.get("/csvDownload", function (req, res) {
+    res.sendFile(__dirname + '/HTML/csvDownload.html');
+});
+
+app.get("/teacherUpcomingClasses", function (req, res) {
+    res.sendFile(__dirname + '/HTML/teacherUpcomingClasses.html');
+});
 
 passport.use(new LocalStrategy( { usernameField: 'email', passwordField: 'password'},
     function(email, password, done) {
@@ -431,3 +438,4 @@ app.post("/Students", function(req, res){
     });
     
 });
+

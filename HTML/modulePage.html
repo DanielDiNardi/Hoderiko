@@ -13,9 +13,9 @@ function processRows(rows, status, xhr) {
     for (let i = 0; i < rows.length; i++) {
 
         var div = $(
-            `<div class="card text-center " id="moduleCard" <a onclick="location.href='/teacherUpcomingClasses'"> </a> >
+            `<div class="card text-center " id="moduleCard">
                 <div class="card-body">
-                    <p class="card-text"> ${rows[i].mName} </p>
+                    <p class="card-text">${rows[i].mName} <a onclick="location.href='/qrPage'"></a> </p>
                     <p class="card-text">${rows[i].mID}</p>
                 </div>
             </div>`);
@@ -31,6 +31,3 @@ function processErrors() {
 
 // Calls viewChar function when the page opens.
 viewTeacherModules();
-
-var ModuleCards=document.getElementById('moduleCard');
-ModuleCards.classList.add('moduleCard');
