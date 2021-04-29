@@ -176,6 +176,31 @@ app.get("/teacherUpcomingClasses", function (req, res) {
     res.sendFile(__dirname + '/HTML/teacherUpcomingClasses.html');
 });
 
+app.get("/Global%20ClassroomM123", function (req, res) {
+    res.sendFile(__dirname + '/HTML/teacherUpcomingClasses.html');
+});
+
+app.get("/Web%20DevelopmentM124", function (req, res) {
+    res.sendFile(__dirname + '/HTML/teacherUpcomingClasses.html');
+});
+
+app.get("/System SecurityM125", function (req, res) {
+    res.sendFile(__dirname + '/HTML/teacherUpcomingClasses.html');
+});
+
+app.get("/Computer%20ArchitectureM126", function (req, res) {
+    res.sendFile(__dirname + '/HTML/teacherUpcomingClasses.html');
+});
+
+app.get("/Testing%20in%20PythonM127", function (req, res) {
+    res.sendFile(__dirname + '/HTML/teacherUpcomingClasses.html');
+});
+
+app.get("/Mobile%20Software%20DevelopmentM128", function (req, res) {
+    res.sendFile(__dirname + '/HTML/teacherUpcomingClasses.html');
+});
+
+
 passport.use(new LocalStrategy( { usernameField: 'email', passwordField: 'password'},
     function(email, password, done) {
         const query = db.prepare(userLogIn);
