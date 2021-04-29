@@ -168,9 +168,7 @@ app.get("/studentLogout", function (req, res) {
     console.log("You've been logged out");
 });
 
-app.get("/csvDownload", function (req, res) {
-    res.sendFile(__dirname + '/HTML/csvDownload.html');
-});
+// Modules - Upcoming Classes
 
 app.get("/teacherUpcomingClasses", function (req, res) {
     res.sendFile(__dirname + '/HTML/teacherUpcomingClasses.html');
@@ -181,23 +179,23 @@ app.get("/Global%20ClassroomM123", function (req, res) {
 });
 
 app.get("/Web%20DevelopmentM124", function (req, res) {
-    res.sendFile(__dirname + '/HTML/teacherUpcomingClasses.html');
+    res.sendFile(__dirname + '/HTML/teacherUpcomingClassesWebDev.html');
 });
 
-app.get("/System SecurityM125", function (req, res) {
-    res.sendFile(__dirname + '/HTML/teacherUpcomingClasses.html');
+app.get("/System%20SecurityM125", function (req, res) {
+    res.sendFile(__dirname + '/HTML/teacherUpcomingClassesSystemSec.html');
 });
 
 app.get("/Computer%20ArchitectureM126", function (req, res) {
-    res.sendFile(__dirname + '/HTML/teacherUpcomingClasses.html');
+    res.sendFile(__dirname + '/HTML/teacherUpcomingClassesCompArch.html');
 });
 
 app.get("/Testing%20in%20PythonM127", function (req, res) {
-    res.sendFile(__dirname + '/HTML/teacherUpcomingClasses.html');
+    res.sendFile(__dirname + '/HTML/teacherUpcomingClassesTestPy.html');
 });
 
 app.get("/Mobile%20Software%20DevelopmentM128", function (req, res) {
-    res.sendFile(__dirname + '/HTML/teacherUpcomingClasses.html');
+    res.sendFile(__dirname + '/HTML/teacherUpcomingClassesMobSoftwareDev.html');
 });
 
 
