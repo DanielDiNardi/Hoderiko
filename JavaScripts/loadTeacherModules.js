@@ -13,7 +13,7 @@ function processRows(rows, status, xhr) {
     for (let i = 0; i < rows.length; i++) {
 
         var div = $(
-            `<div class="card text-center " id="moduleCard" onclick="location.href='/teacherUpcomingClasses'"  ${rows[i].mName} >
+            `<div class="card text-center " id="moduleCard" onclick="location.href='${rows[i].mName}${rows[i].mID}'" >
                 <div class="card-body">
                     <p class="card-text"> ${rows[i].mName} </p>
                     <p class="card-text">${rows[i].mID}</p>
