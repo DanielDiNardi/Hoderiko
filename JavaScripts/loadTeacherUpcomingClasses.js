@@ -13,7 +13,7 @@ function processRows(rows, status, xhr) {
     for (let i = 0; i < rows.length; i++) {
 
         var div = $(
-            `<div class="card text-center " id="moduleCard" onclick = "classIDFunction(${(rows[i].classID)})" >
+            `<div class="card text-center " id="moduleCard" onclick = "classIDFunction('${(rows[i].classID)}')" >
                 <div class="card-body">
                     <p class="card-text">${rows[i].mName}</p>
                     <p class="card-text">${rows[i].classDate}</p>

@@ -1,8 +1,7 @@
-var QRCode = require('qrcode')
-
 function getClassData(){
 	var newClassID = localStorage.getItem("newClassKey");
-    const post = $.post('http://localhost:3000/QRCode', newClassID);
+    console.log(newClassID);
+    const post = $.post('http://localhost:3000/QRCode', {classID :newClassID});
     post.done(processRows);
     post.fail(processErrors);
 }
@@ -13,17 +12,19 @@ function processRows(rows, status, xhr) {
 
 	var data = rows;
 
-	QRCode.makeCode(data);
+    console.log(data[0]);
+
+	$("#qrCode").ClassyQR({
+        create: true,
+        type: 'text',
+        text: data[0].classID
+    });
 }
 
 // Returns an error in console if a field is invalid.
 function processErrors() {
     console.log('Validation errors');
 }
-
-$("#getQRCode").onclick(function(){
-	getClassData();
-});
 
 function classIDFunction(classID) {
     var newClassID = classID;

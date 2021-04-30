@@ -178,11 +178,6 @@ app.get("/studentLogout", function (req, res) {
     console.log("You've been logged out");
 });
 
-<<<<<<< HEAD
-app.get("/teacherUpcomingClasses", function (req, res) {
-    res.sendFile(__dirname + '/teacherUpcomingClasses');
-})
-=======
 // Modules - Upcoming Classes
 
 app.get("/teacherUpcomingClasses", function (req, res) {
@@ -212,7 +207,6 @@ app.get("/Testing%20in%20PythonM127", function (req, res) {
 app.get("/Mobile%20Software%20DevelopmentM128", function (req, res) {
     res.sendFile(__dirname + '/HTML/teacherUpcomingClassesMobSoftwareDev.html');
 });
->>>>>>> 5fa1f65c9b891c54105f7dcfbd89f00b12db07ea
 
 
 passport.use(new LocalStrategy( { usernameField: 'email', passwordField: 'password'},
@@ -492,12 +486,11 @@ app.post("/Students", function(req, res){
     
 });
 
-<<<<<<< HEAD
 app.post("/QRCode", function(req, res){
-    const classID = req.body.newClassID;
+    const classID = req.body.classID;
     console.log(classID);
     const query = db.prepare(selectQRCodeInfo);
-    query.all(function(error, rows) {
+    query.all(classID, function(error, rows) {
         if (error) {
             console.log(error);
             res.status(400).json(error);
@@ -508,5 +501,3 @@ app.post("/QRCode", function(req, res){
     });
     
 });
-=======
->>>>>>> 5fa1f65c9b891c54105f7dcfbd89f00b12db07ea
