@@ -178,9 +178,41 @@ app.get("/studentLogout", function (req, res) {
     console.log("You've been logged out");
 });
 
+<<<<<<< HEAD
 app.get("/teacherUpcomingClasses", function (req, res) {
     res.sendFile(__dirname + '/teacherUpcomingClasses');
 })
+=======
+// Modules - Upcoming Classes
+
+app.get("/teacherUpcomingClasses", function (req, res) {
+    res.sendFile(__dirname + '/HTML/teacherUpcomingClasses.html');
+});
+
+app.get("/Global%20ClassroomM123", function (req, res) {
+    res.sendFile(__dirname + '/HTML/teacherUpcomingClasses.html');
+});
+
+app.get("/Web%20DevelopmentM124", function (req, res) {
+    res.sendFile(__dirname + '/HTML/teacherUpcomingClassesWebDev.html');
+});
+
+app.get("/System%20SecurityM125", function (req, res) {
+    res.sendFile(__dirname + '/HTML/teacherUpcomingClassesSystemSec.html');
+});
+
+app.get("/Computer%20ArchitectureM126", function (req, res) {
+    res.sendFile(__dirname + '/HTML/teacherUpcomingClassesCompArch.html');
+});
+
+app.get("/Testing%20in%20PythonM127", function (req, res) {
+    res.sendFile(__dirname + '/HTML/teacherUpcomingClassesTestPy.html');
+});
+
+app.get("/Mobile%20Software%20DevelopmentM128", function (req, res) {
+    res.sendFile(__dirname + '/HTML/teacherUpcomingClassesMobSoftwareDev.html');
+});
+>>>>>>> 5fa1f65c9b891c54105f7dcfbd89f00b12db07ea
 
 
 passport.use(new LocalStrategy( { usernameField: 'email', passwordField: 'password'},
@@ -460,6 +492,7 @@ app.post("/Students", function(req, res){
     
 });
 
+<<<<<<< HEAD
 app.post("/QRCode", function(req, res){
     const classID = req.body.newClassID;
     console.log(classID);
@@ -475,3 +508,5 @@ app.post("/QRCode", function(req, res){
     });
     
 });
+=======
+>>>>>>> 5fa1f65c9b891c54105f7dcfbd89f00b12db07ea

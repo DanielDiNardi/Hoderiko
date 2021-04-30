@@ -22,9 +22,9 @@ function processRows(rows, status, xhr) {
             </div>`);
 
         var div2 = $(
-            `<div class="card text-center " id="moduleCard"">
+            `<div class="card text-center " id="moduleCard" onclick="location.href='${rows[i].mName}${rows[i].mID}'" onmouseover="$(this).css('background-color','#cee5e8', 'font-size', '2.5em')" onmouseleave="$(this).css('background-color','white', 'font-size', '2.5em');" >
                 <div class="card-body">
-                    <p class="card-text">${rows[i].mName}</p>
+                    <p class="card-text"><strong> ${rows[i].mName} <strong></p>
                     <p class="card-text">${rows[i].mID}</p>
                 </div>
             </div>`);
@@ -40,3 +40,11 @@ function processErrors() {
 
 // Calls viewChar function when the page opens.
 viewTeacherModules();
+
+
+// function hoverModules() {
+//     var ModuleCards=document.getElementById('moduleCard');
+//     ModuleCards.classList.add('moduleCard');
+// }
+
+// hoverModules();
