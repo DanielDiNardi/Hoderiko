@@ -23,6 +23,8 @@ const selectExamsByTeacher = "SELECT testName, testDate, testResult FROM Test JO
 const selectAllModules = "SELECT * FROM Module;";
 const selectAllStudents = "SELECT * FROM User WHERE role = 'ROLE.STUDENT';";
 const selectAllTeachers = "SELECT * FROM User WHERE role = 'ROLE.TEACHER';";
+const selectUpcomingClassesByTeacher = "SELECT classID, mName, classDate, classStartTIme, classEndTime FROM module JOIN class USING(mID) WHERE tID = $1;";
+const selectQRCodeInfo = "SELECT * FROM Class WHERE classID = $1;";
 
 
 module.exports = {
@@ -116,6 +118,14 @@ app.get('/teacherExams', isAuthenticatedTeacher(), isRole(TEACHER), function(req
     res.sendFile(__dirname + '/HTML/teacherExams.html');
 });
 
+app.get('/teacherUpcomingClasses', isAuthenticatedTeacher(), isRole(TEACHER), function(req, res) {
+    res.sendFile(__dirname + '/HTML/teacherUpcomingClasses.html');
+});
+
+app.get('/QRCode', isAuthenticatedTeacher(), isRole(TEACHER), function(req, res) {
+    res.sendFile(__dirname + '/HTML/classQRCode.html');
+});
+
 // Student Tab.
 
 app.get('/studentLogIn', function(req, res){
@@ -151,9 +161,9 @@ app.get('/studentsTab', isAuthenticatedStudent(), isRole(ADMIN), function (req, 
 });
 
 app.get("/adminLogout", function (req, res) {
-    req.logout()
-    res.redirect("/loginHub")
-    console.log("You've been logged out")
+    req.logout();
+    res.redirect("/loginHub");
+    console.log("You've been logged out");
 });
 
 app.get("/teacherLogout", function (req, res) {
@@ -167,6 +177,10 @@ app.get("/studentLogout", function (req, res) {
     res.redirect("/loginHub");
     console.log("You've been logged out");
 });
+
+app.get("/teacherUpcomingClasses", function (req, res) {
+    res.sendFile(__dirname + '/teacherUpcomingClasses');
+})
 
 
 passport.use(new LocalStrategy( { usernameField: 'email', passwordField: 'password'},
@@ -390,6 +404,20 @@ app.post("/teacherExams", function(req, res){
     
 });
 
+app.post("/teacherUpcomingClasses", function(req, res){
+    const query = db.prepare(selectUpcomingClassesByTeacher);
+    query.all(userID, function(error, rows) {
+        if (error) {
+            console.log(error);
+            res.status(400).json(error);
+        } else {
+            console.log(rows);
+            res.status(200).json(rows);
+        }
+    });
+    
+});
+
 app.post("/Modules", function(req, res){
     const query = db.prepare(selectAllModules);
     query.all(function(error, rows) {
@@ -420,6 +448,22 @@ app.post("/Teachers", function(req, res){
 
 app.post("/Students", function(req, res){
     const query = db.prepare(selectAllStudents);
+    query.all(function(error, rows) {
+        if (error) {
+            console.log(error);
+            res.status(400).json(error);
+        } else {
+            console.log(rows);
+            res.status(200).json(rows);
+        }
+    });
+    
+});
+
+app.post("/QRCode", function(req, res){
+    const classID = req.body.newClassID;
+    console.log(classID);
+    const query = db.prepare(selectQRCodeInfo);
     query.all(function(error, rows) {
         if (error) {
             console.log(error);

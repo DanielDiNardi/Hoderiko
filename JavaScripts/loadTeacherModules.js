@@ -12,7 +12,16 @@ function processRows(rows, status, xhr) {
     console.log("Inside processRows func");
     for (let i = 0; i < rows.length; i++) {
 
+
         var div = $(
+            `<div class="card text-center " id="moduleCard" <a onclick="location.href='/teacherUpcomingClasses'">  </a> >
+                <div class="card-body">
+                    <p class="card-text">${rows[i].mName} </a></p>
+                    <p class="card-text">${rows[i].mID}</p>
+                </div>
+            </div>`);
+
+        var div2 = $(
             `<div class="card text-center " id="moduleCard"">
                 <div class="card-body">
                     <p class="card-text">${rows[i].mName}</p>

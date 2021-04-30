@@ -109,6 +109,12 @@ body{
     display: inline-block;
 }
 
+.show a:hover {
+    display: inline-block;
+    background-color: #ddd;
+    width: 100%;
+}
+
 #listHeader{
     background: rgba(255, 255, 255, 0.7);
     margin-left: 12em;

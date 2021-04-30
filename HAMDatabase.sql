@@ -105,3 +105,7 @@ INSERT INTO Grade (mID, sID, finalGrade) VALUES("M125", "S123456", 67);
 INSERT INTO Grade (mID, sID, finalGrade) VALUES("M126", "S123456", 50);
 INSERT INTO Grade (mID, sID, finalGrade) VALUES("M127", "S123456", 53);
 INSERT INTO Grade (mID, sID, finalGrade) VALUES("M128", "S123456", 43);
+
+--Test Classes
+INSERT INTO Class (classID, mID, totalStudents, classDate, classStartTIme, classEndTime) VALUES("C123", "M123", 40, "2021-04-28", "20:00", "21:00");
+INSERT INTO Class (classID, mID, totalStudents, classDate, classStartTIme, classEndTime) VALUES("C124", "M123", 40, "2021-06-28", "10:00", "11:00");
