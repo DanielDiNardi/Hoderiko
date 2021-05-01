@@ -5,6 +5,16 @@ const db = new sqlite3.Database('HAMDatabase.db');
 const passport = require('passport');
 const session = require('express-session');
 const LocalStrategy = require('passport-local').Strategy;
+// const createCSVWriter = require('csv-writer').createArrayCsvWriter;
+// const csvWriter = createCsvWriter({
+//     path: 'report.csv',
+//     header: [
+//         {id: 'Name', title: 'NAME'},
+//         {id: 'StudentID', title: 'STUDENTID'},
+//         {id: 'Grade', title: 'GRADE'},
+//         {id: 'Attendance', title: 'ATTENDANCE'}
+//     ]
+// });
 
 var userID;
 var userRole;
@@ -23,7 +33,7 @@ const selectExamsByTeacher = "SELECT testName, testDate, testResult FROM Test JO
 const selectAllModules = "SELECT * FROM Module;";
 const selectAllStudents = "SELECT * FROM User WHERE role = 'ROLE.STUDENT';";
 const selectAllTeachers = "SELECT * FROM User WHERE role = 'ROLE.TEACHER';";
-const selectUpcomingClassesByTeacher = "SELECT classID, mName, classDate, classStartTIme, classEndTime FROM module JOIN class USING(mID) WHERE tID = $1;";
+const selectUpcomingClassesByTeacher = "SELECT classID, mName, classDate, classStartTIme, classEndTime FROM module JOIN class USING(mID) WHERE tID = $1 AND mID = $2;";
 const selectQRCodeInfo = "SELECT * FROM Class WHERE classID = $1;";
 
 
@@ -184,29 +194,6 @@ app.get("/teacherUpcomingClasses", function (req, res) {
     res.sendFile(__dirname + '/HTML/teacherUpcomingClasses.html');
 });
 
-app.get("/Global%20ClassroomM123", function (req, res) {
-    res.sendFile(__dirname + '/HTML/teacherUpcomingClasses.html');
-});
-
-app.get("/Web%20DevelopmentM124", function (req, res) {
-    res.sendFile(__dirname + '/HTML/teacherUpcomingClassesWebDev.html');
-});
-
-app.get("/System%20SecurityM125", function (req, res) {
-    res.sendFile(__dirname + '/HTML/teacherUpcomingClassesSystemSec.html');
-});
-
-app.get("/Computer%20ArchitectureM126", function (req, res) {
-    res.sendFile(__dirname + '/HTML/teacherUpcomingClassesCompArch.html');
-});
-
-app.get("/Testing%20in%20PythonM127", function (req, res) {
-    res.sendFile(__dirname + '/HTML/teacherUpcomingClassesTestPy.html');
-});
-
-app.get("/Mobile%20Software%20DevelopmentM128", function (req, res) {
-    res.sendFile(__dirname + '/HTML/teacherUpcomingClassesMobSoftwareDev.html');
-});
 
 
 passport.use(new LocalStrategy( { usernameField: 'email', passwordField: 'password'},
@@ -431,8 +418,9 @@ app.post("/teacherExams", function(req, res){
 });
 
 app.post("/teacherUpcomingClasses", function(req, res){
+    const mID = req.body.moduleID;
     const query = db.prepare(selectUpcomingClassesByTeacher);
-    query.all(userID, function(error, rows) {
+    query.all(userID, mID, function(error, rows) {
         if (error) {
             console.log(error);
             res.status(400).json(error);
