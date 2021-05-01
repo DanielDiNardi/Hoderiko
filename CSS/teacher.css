@@ -118,6 +118,12 @@ body{
     width: 100%;
 }
 
+.show a:hover {
+    display: inline-block;
+    background-color: #ddd;
+    width: 100%;
+}
+
 #listHeader {
     background: rgba(255, 255, 255, 0.7);
     margin-left: 12em;
@@ -143,6 +149,11 @@ body{
     margin-top: 2em;
     margin-bottom: 2em;
     margin-right: 3em;
+}
+
+#qrCode{
+    height: 15em;
+    width: 15em;
 }
 
 .moduleCard :hover {
