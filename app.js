@@ -5,17 +5,19 @@ const db = new sqlite3.Database('HAMDatabase.db');
 const passport = require('passport');
 const session = require('express-session');
 const LocalStrategy = require('passport-local').Strategy;
-// const createCSVWriter = require('csv-writer').createArrayCsvWriter;
-// const csvWriter = createCsvWriter({
-//     path: 'report.csv',
-//     header: [
-//         {id: 'Name', title: 'NAME'},
-//         {id: 'StudentID', title: 'STUDENTID'},
-//         {id: 'Grade', title: 'GRADE'},
-//         {id: 'Attendance', title: 'ATTENDANCE'}
-//     ]
-// });
+const createCSVWriter = require('csv-writer').createObjectCsvWriter;
+const csvWriter = createCSVWriter({
+    path: 'report.csv',
+    header: [
+        { id: 'Name', title: 'NAME' },
+        { id: 'ModuleName', title: 'MODULENAME' },
+        { id: 'Attended', title: 'ATTENDANCE' },
+        { id: 'classDate', title: 'CLASSDATE' },
+        { id: 'classJoinTime', title: 'CLASSJOINDATE' }
+    ]
+});
 
+const record = [];
 var userID;
 var userRole;
 const ADMIN = 'ROLE.ADMIN';
@@ -35,29 +37,31 @@ const selectAllStudents = "SELECT * FROM User WHERE role = 'ROLE.STUDENT';";
 const selectAllTeachers = "SELECT * FROM User WHERE role = 'ROLE.TEACHER';";
 const selectUpcomingClassesByTeacher = "SELECT classID, mName, classDate, classStartTIme, classEndTime FROM module JOIN class USING(mID) WHERE tID = $1 AND mID = $2;";
 const selectQRCodeInfo = "SELECT * FROM Class WHERE classID = $1;";
+const getUserAttendance = "SELECT name, mName, attended, classDate, classJoinTime FROM userAttendedClass JOIN User on userAttendedClass.sID = User.id JOIN Class USING(classID) JOIN Module USING(mID);";
+
 
 
 module.exports = {
-    userLogInCheck: function(){
+    userLogInCheck: function () {
         return userLogIn;
     },
 
-    findUserbyIDCheck: function(){
+    findUserbyIDCheck: function () {
         return findUserbyID;
     },
 
-    selectModulesByStudentCheck: function(){
+    selectModulesByStudentCheck: function () {
         return selectModulesByStudent;
     },
 
-    selectExamsByStudentCheck: function(){
+    selectExamsByStudentCheck: function () {
         return selectExamsByStudent;
     },
 
-    selectGradesByStudentCheck: function(){
+    selectGradesByStudentCheck: function () {
         return selectGradesByStudent;
     }
-    
+
 }
 
 const app = express();
@@ -65,7 +69,7 @@ const app = express();
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(express.static(__dirname + "/"));
-app.listen(3000, function(){
+app.listen(3000, function () {
     console.log('Server started, Hello Hoderiko :)');
 });
 app.use(session({
@@ -76,81 +80,81 @@ app.use(session({
 app.use(passport.initialize());
 app.use(passport.session());
 
-app.get('/', function(req, res){
+app.get('/', function (req, res) {
     res.sendFile(__dirname + '/HTML/index.html');
 });
 
-app.get('/loginHub', function(req, res){
+app.get('/loginHub', function (req, res) {
     res.sendFile(__dirname + '/HTML/role.html');
 });
 
 // Admin Tabs.
 
-app.get('/adminLogIn', function(req, res){
+app.get('/adminLogIn', function (req, res) {
     res.sendFile(__dirname + '/HTML/adminLogIn.html');
 });
 
-app.get('/adminDashboard', isAuthenticatedAdmin(), isRole(ADMIN),function(req, res) {
+app.get('/adminDashboard', isAuthenticatedAdmin(), isRole(ADMIN), function (req, res) {
     res.sendFile(__dirname + '/HTML/adminDashboard.html');
 });
 
-app.get('/Modules', isAuthenticatedAdmin(), isRole(ADMIN),function(req, res) {
+app.get('/Modules', isAuthenticatedAdmin(), isRole(ADMIN), function (req, res) {
     res.sendFile(__dirname + '/HTML/adminModules.html');
 });
 
-app.get('/Students', isAuthenticatedAdmin(), isRole(ADMIN),function(req, res) {
+app.get('/Students', isAuthenticatedAdmin(), isRole(ADMIN), function (req, res) {
     res.sendFile(__dirname + '/HTML/studentsTab.html');
 });
 
-app.get('/Teachers', isAuthenticatedAdmin(), isRole(ADMIN),function(req, res) {
+app.get('/Teachers', isAuthenticatedAdmin(), isRole(ADMIN), function (req, res) {
     res.sendFile(__dirname + '/HTML/teacherTab.html');
 });
 
 // Teacher Tabs.
 
-app.get('/teacherLogIn', function(req, res){
+app.get('/teacherLogIn', function (req, res) {
     res.sendFile(__dirname + '/HTML/teacherLogIn.html');
 });
 
-app.get('/teacherDashboard', isAuthenticatedTeacher(), isRole(TEACHER), function(req, res) {
+app.get('/teacherDashboard', isAuthenticatedTeacher(), isRole(TEACHER), function (req, res) {
     res.sendFile(__dirname + '/HTML/teacherDashboard.html');
 });
 
-app.get('/teacherModules', isAuthenticatedTeacher(), isRole(TEACHER), function(req, res) {
+app.get('/teacherModules', isAuthenticatedTeacher(), isRole(TEACHER), function (req, res) {
     res.sendFile(__dirname + '/HTML/teacherModules.html');
 });
 
-app.get('/teacherStudentGrades', isAuthenticatedTeacher(), isRole(TEACHER), function(req, res) {
+app.get('/teacherStudentGrades', isAuthenticatedTeacher(), isRole(TEACHER), function (req, res) {
     res.sendFile(__dirname + '/HTML/teacherStudentGrades.html');
 });
 
-app.get('/teacherExams', isAuthenticatedTeacher(), isRole(TEACHER), function(req, res) {
+app.get('/teacherExams', isAuthenticatedTeacher(), isRole(TEACHER), function (req, res) {
     res.sendFile(__dirname + '/HTML/teacherExams.html');
 });
 
-app.get('/teacherUpcomingClasses', isAuthenticatedTeacher(), isRole(TEACHER), function(req, res) {
+app.get('/teacherUpcomingClasses', isAuthenticatedTeacher(), isRole(TEACHER), function (req, res) {
     res.sendFile(__dirname + '/HTML/teacherUpcomingClasses.html');
 });
 
-app.get('/QRCode', isAuthenticatedTeacher(), isRole(TEACHER), function(req, res) {
+app.get('/QRCode', isAuthenticatedTeacher(), isRole(TEACHER), function (req, res) {
     res.sendFile(__dirname + '/HTML/classQRCode.html');
 });
 
 // Student Tab.
 
-app.get('/studentLogIn', function(req, res){
+app.get('/studentLogIn', function (req, res) {
     res.sendFile(__dirname + '/HTML/studentLogIn.html');
 });
 
-app.get('/studentDashboard', isAuthenticatedStudent(), isRole(STUDENT), function(req, res) {
+app.get('/studentDashboard', isAuthenticatedStudent(), isRole(STUDENT), function (req, res) {
     res.sendFile(__dirname + '/HTML/studentDashboard.html');
 });
 
-app.get('/studentModules', isAuthenticatedStudent(), isRole(STUDENT), function(req, res) {
+app.get('/studentModules', isAuthenticatedStudent(), isRole(STUDENT), function (req, res) {
     res.sendFile(__dirname + '/HTML/studentModules.html');
 });
 
-app.get('/studentGrades', isAuthenticatedStudent(), isRole(STUDENT), function(req, res) {
+app.get('/studentGrades', isAuthenticatedStudent(), isRole(STUDENT), function (req, res) {
     res.sendFile(__dirname + '/HTML/studentGrades.html');
 });
 
@@ -196,19 +200,19 @@ app.get("/teacherUpcomingClasses", function (req, res) {
 
 
 
-passport.use(new LocalStrategy( { usernameField: 'email', passwordField: 'password'},
-    function(email, password, done) {
+passport.use(new LocalStrategy({ usernameField: 'email', passwordField: 'password' },
+    function (email, password, done) {
         const query = db.prepare(userLogIn);
-        query.get(email, function(err, row) {
+        query.get(email, function (err, row) {
             if (err) { return done(err); }
             if (!row) { return done(null, false, { message: 'User not found.' }); }
-            if(password == row.password) {
+            if (password == row.password) {
                 done(null, { id: row.id });
-                    console.log(row);
-                    userID = row.id;
-                    userRole = row.role;
+                console.log(row);
+                userID = row.id;
+                userRole = row.role;
             }
-            else  {
+            else {
                 return done(null, false, { message: 'Incorrect password' });
             }
         });
@@ -216,7 +220,7 @@ passport.use(new LocalStrategy( { usernameField: 'email', passwordField: 'passwo
 ));
 
 function isAuthenticatedAdmin() {
-    return function(req, res, next) {
+    return function (req, res, next) {
         if (req.isAuthenticated()) {
             return next()
         }
@@ -225,7 +229,7 @@ function isAuthenticatedAdmin() {
 }
 
 function isAuthenticatedTeacher() {
-    return function(req, res, next) {
+    return function (req, res, next) {
         if (req.isAuthenticated()) {
             return next()
         }
@@ -234,7 +238,7 @@ function isAuthenticatedTeacher() {
 }
 
 function isAuthenticatedStudent() {
-    return function(req, res, next) {
+    return function (req, res, next) {
         if (req.isAuthenticated()) {
             return next()
         }
@@ -243,8 +247,8 @@ function isAuthenticatedStudent() {
 }
 
 function isRole(roleRequired) {
-    return function(req, res, next) {
-        if(userRole != roleRequired){
+    return function (req, res, next) {
+        if (userRole != roleRequired) {
             console.log("Incorrect Role");
             req.logout()
             return res.redirect('/loginHub');
@@ -253,20 +257,20 @@ function isRole(roleRequired) {
     }
 }
 
-passport.serializeUser(function(user, done) {
+passport.serializeUser(function (user, done) {
     done(null, user.id);
 });
 
-passport.deserializeUser(function(id, done) {
+passport.deserializeUser(function (id, done) {
     const query = db.prepare(findUserbyID);
-    query.get(id, function(err, row) {
+    query.get(id, function (err, row) {
         done(err, row);
     });
 });
 
-app.post('/adminLogIn', function(req, res, next) {
-    passport.authenticate('local', function(err, user, info) {
-        
+app.post('/adminLogIn', function (req, res, next) {
+    passport.authenticate('local', function (err, user, info) {
+
         if (err) {
             console.log(err);
             return next(err);
@@ -276,7 +280,7 @@ app.post('/adminLogIn', function(req, res, next) {
             console.log("Access Denied");
             return res.redirect('/adminLogIn');
         }
-        req.logIn(user, function(err) {
+        req.logIn(user, function (err) {
             if (err) {
                 console.log(err);
                 return next(err);
@@ -287,9 +291,43 @@ app.post('/adminLogIn', function(req, res, next) {
     })(req, res, next);
 });
 
-app.post('/teacherLogIn', function(req, res, next) {
-    passport.authenticate('local', function(err, user, info) {
-        
+app.post('/adminDashboard', function (req, res, next) {
+    const query = db.prepare(getUserAttendance);
+    query.all(function (error, rows) {
+        if (error) {
+            console.log(error);
+            res.status(400).json(error);
+        } else {
+            for (var i = 0; i < rows.length; i++) {
+                record.push({
+                    Name: rows[i].name,
+                    ModuleName: rows[i].mName,
+                    Attended: rows[i].attended,
+                    classDate: rows[i].classDate,
+                    classJoinTime: rows[i].classJoinTime
+                });
+            }
+
+            console.log(record);
+            csvWriter.writeRecords(record)
+                .then(result => console.log("worked message: ", result))
+                .catch(ex => console.error(ex));
+
+        }
+
+        // "SELECT name, mName, attended, classDate, classJoinTime FROM userAttendedClass JOIN User on userAttendedClass
+
+        // {id: 'Name', title: 'NAME'},
+        // {id: 'ModuleName', title: 'MODULENAME'},
+        // {id: 'Attended', title: 'ATTENDANCE'},
+        // {id: 'classDate', title: 'CLASSDATE'},
+        // {id: 'classJoinTime', title: 'CLASSJOINDATE'}
+    });
+});
+
+app.post('/teacherLogIn', function (req, res, next) {
+    passport.authenticate('local', function (err, user, info) {
+
         if (err) {
             console.log(err);
             return next(err);
@@ -299,7 +337,7 @@ app.post('/teacherLogIn', function(req, res, next) {
             console.log("Access Denied");
             return res.redirect('/teacherLogIn');
         }
-        req.logIn(user, function(err) {
+        req.logIn(user, function (err) {
             if (err) {
                 console.log(err);
                 return next(err);
@@ -310,9 +348,9 @@ app.post('/teacherLogIn', function(req, res, next) {
     })(req, res, next);
 });
 
-app.post('/studentLogIn', function(req, res, next) {
-    passport.authenticate('local', function(err, user, info) {
-        
+app.post('/studentLogIn', function (req, res, next) {
+    passport.authenticate('local', function (err, user, info) {
+
         if (err) {
             console.log(err);
             return next(err);
@@ -322,7 +360,7 @@ app.post('/studentLogIn', function(req, res, next) {
             console.log("Access Denied");
             return res.redirect('/studentLogIn');
         }
-        req.logIn(user, function(err) {
+        req.logIn(user, function (err) {
             if (err) {
                 console.log(err);
                 return next(err);
@@ -333,9 +371,9 @@ app.post('/studentLogIn', function(req, res, next) {
     })(req, res, next);
 });
 
-app.post("/studentModules", function(req, res){
+app.post("/studentModules", function (req, res) {
     const query = db.prepare(selectModulesByStudent);
-    query.all(userID, function(error, rows) {
+    query.all(userID, function (error, rows) {
         if (error) {
             console.log(error);
             res.status(400).json(error);
@@ -344,12 +382,12 @@ app.post("/studentModules", function(req, res){
             res.status(200).json(rows);
         }
     });
-    
+
 });
 
-app.post("/studentExams", function(req, res){
+app.post("/studentExams", function (req, res) {
     const query = db.prepare(selectExamsByStudent);
-    query.all(userID, function(error, rows) {
+    query.all(userID, function (error, rows) {
         if (error) {
             console.log(error);
             res.status(400).json(error);
@@ -358,12 +396,12 @@ app.post("/studentExams", function(req, res){
             res.status(200).json(rows);
         }
     });
-    
+
 });
 
-app.post("/studentGrades", function(req, res){
+app.post("/studentGrades", function (req, res) {
     const query = db.prepare(selectGradesByStudent);
-    query.all(userID, function(error, rows) {
+    query.all(userID, function (error, rows) {
         if (error) {
             console.log(error);
             res.status(400).json(error);
@@ -372,12 +410,12 @@ app.post("/studentGrades", function(req, res){
             res.status(200).json(rows);
         }
     });
-    
+
 });
 
-app.post("/teacherModules", function(req, res){
+app.post("/teacherModules", function (req, res) {
     const query = db.prepare(selectModulesByTeacher);
-    query.all(userID, function(error, rows) {
+    query.all(userID, function (error, rows) {
         if (error) {
             console.log(error);
             res.status(400).json(error);
@@ -386,12 +424,12 @@ app.post("/teacherModules", function(req, res){
             res.status(200).json(rows);
         }
     });
-    
+
 });
 
-app.post("/teacherStudentGrades", function(req, res){
+app.post("/teacherStudentGrades", function (req, res) {
     const query = db.prepare(selectTeacherStudentGrades);
-    query.all(userID, function(error, rows) {
+    query.all(userID, function (error, rows) {
         if (error) {
             console.log(error);
             res.status(400).json(error);
@@ -400,12 +438,12 @@ app.post("/teacherStudentGrades", function(req, res){
             res.status(200).json(rows);
         }
     });
-    
+
 });
 
-app.post("/teacherExams", function(req, res){
+app.post("/teacherExams", function (req, res) {
     const query = db.prepare(selectExamsByTeacher);
-    query.all(userID, function(error, rows) {
+    query.all(userID, function (error, rows) {
         if (error) {
             console.log(error);
             res.status(400).json(error);
@@ -414,13 +452,13 @@ app.post("/teacherExams", function(req, res){
             res.status(200).json(rows);
         }
     });
-    
+
 });
 
-app.post("/teacherUpcomingClasses", function(req, res){
+app.post("/teacherUpcomingClasses", function (req, res) {
     const mID = req.body.moduleID;
     const query = db.prepare(selectUpcomingClassesByTeacher);
-    query.all(userID, mID, function(error, rows) {
+    query.all(userID, mID, function (error, rows) {
         if (error) {
             console.log(error);
             res.status(400).json(error);
@@ -429,12 +467,12 @@ app.post("/teacherUpcomingClasses", function(req, res){
             res.status(200).json(rows);
         }
     });
-    
+
 });
 
-app.post("/Modules", function(req, res){
+app.post("/Modules", function (req, res) {
     const query = db.prepare(selectAllModules);
-    query.all(function(error, rows) {
+    query.all(function (error, rows) {
         if (error) {
             console.log(error);
             res.status(400).json(error);
@@ -443,12 +481,12 @@ app.post("/Modules", function(req, res){
             res.status(200).json(rows);
         }
     });
-    
+
 });
 
-app.post("/Teachers", function(req, res){
+app.post("/Teachers", function (req, res) {
     const query = db.prepare(selectAllTeachers);
-    query.all(function(error, rows) {
+    query.all(function (error, rows) {
         if (error) {
             console.log(error);
             res.status(400).json(error);
@@ -457,12 +495,12 @@ app.post("/Teachers", function(req, res){
             res.status(200).json(rows);
         }
     });
-    
+
 });
 
-app.post("/Students", function(req, res){
+app.post("/Students", function (req, res) {
     const query = db.prepare(selectAllStudents);
-    query.all(function(error, rows) {
+    query.all(function (error, rows) {
         if (error) {
             console.log(error);
             res.status(400).json(error);
@@ -471,14 +509,14 @@ app.post("/Students", function(req, res){
             res.status(200).json(rows);
         }
     });
-    
+
 });
 
-app.post("/QRCode", function(req, res){
+app.post("/QRCode", function (req, res) {
     const classID = req.body.classID;
     console.log(classID);
     const query = db.prepare(selectQRCodeInfo);
-    query.all(classID, function(error, rows) {
+    query.all(classID, function (error, rows) {
         if (error) {
             console.log(error);
             res.status(400).json(error);
@@ -487,5 +525,5 @@ app.post("/QRCode", function(req, res){
             res.status(200).json(rows);
         }
     });
-    
+
 });
