@@ -34,7 +34,7 @@ CREATE TABLE Course(
 );
 
 CREATE TABLE Class(
-    classID VARCHER(50) PRIMARY KEY,
+    classID VARCHAR(50) PRIMARY KEY,
     mID VARCHAR(50),
     totalStudents NUMBER(3),
     classDate DATE,
@@ -44,8 +44,8 @@ CREATE TABLE Class(
 );
 
 CREATE TABLE userAttendedClass(
-    sID VARCHER(50),
-    classID VARCHER(50),
+    sID VARCHAR(50),
+    classID VARCHAR(50),
     classJoinTime TIME,
     serverJoinTime TIME,
     attended BOOLEAN,
@@ -109,3 +109,13 @@ INSERT INTO Grade (mID, sID, finalGrade) VALUES("M128", "S123456", 43);
 --Test Classes
 INSERT INTO Class (classID, mID, totalStudents, classDate, classStartTime, classEndTime) VALUES("C123", "M123", 40, "2021-04-28", "20:00", "21:00");
 INSERT INTO Class (classID, mID, totalStudents, classDate, classStartTime, classEndTime) VALUES("C124", "M123", 40, "2021-06-28", "10:00", "11:00");
+INSERT INTO Class (classID, mID, totalStudents, classDate, classStartTime, classEndTime) VALUES("C125", "M124", 40, "2021-06-29", "11:00", "12:00");
+INSERT INTO Class (classID, mID, totalStudents, classDate, classStartTime, classEndTime) VALUES("C126", "M125", 40, "2021-06-21", "14:00", "15:00");
+INSERT INTO Class (classID, mID, totalStudents, classDate, classStartTime, classEndTime) VALUES("C127", "M126", 40, "2021-06-22", "15:00", "16:00");
+INSERT INTO Class (classID, mID, totalStudents, classDate, classStartTime, classEndTime) VALUES("C128", "M127", 40, "2021-06-24", "16:00", "17:00");
+INSERT INTO Class (classID, mID, totalStudents, classDate, classStartTime, classEndTime) VALUES("C129", "M128", 40, "2021-06-25", "17:00", "18:00");
+
+--Queries
+-- SELECT name, id, finalGrade, COUNT() AS attendance FROM User 
+-- JOIN Grade ON User.id = Grade.sID 
+-- JOIN userAttendedClass ON User.id = userAttendedClass.sID;

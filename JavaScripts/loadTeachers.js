@@ -13,7 +13,7 @@ function processRows(rows, status, xhr) {
     for (let i = 0; i < rows.length; i++) {
 
         var div = $(
-            `<div class="card text-center " id="teacherCard"">
+            `<div class="card text-center" id="teacherCard" onmouseover="$(this).css('background-color','#c5f0d1', 'font-size', '2.5em')" onmouseleave="$(this).css('background-color','white', 'font-size', '2.5em');">
                 <div class="card-body">
                     <p class="card-text">${rows[i].name}</p>
                     <p class="card-text">${rows[i].id}</p>

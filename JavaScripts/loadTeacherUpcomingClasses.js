@@ -1,6 +1,7 @@
 // Sends an empty post to the server to get the character information.
 function viewAdminModules(){
-    const post = $.post('http://localhost:3000/teacherUpcomingClasses', 0);
+    var newMID = localStorage.getItem("newMKey");
+    const post = $.post('http://localhost:3000/teacherUpcomingClasses', {moduleID: newMID});
     console.log("Inside viewAdminModules func");
     post.done(processRows);
     post.fail(processErrors);
@@ -13,7 +14,7 @@ function processRows(rows, status, xhr) {
     for (let i = 0; i < rows.length; i++) {
 
         var div = $(
-            `<div class="card text-center " id="moduleCard" onclick = "classIDFunction('${(rows[i].classID)}')" >
+            `<div class="card text-center " id="moduleCard" onclick = "classIDFunction('${(rows[i].classID)}')" onmouseover="$(this).css('background-color','#c5f0d1', 'font-size', '2.5em')" onmouseleave="$(this).css('background-color','white', 'font-size', '2.5em');">
                 <div class="card-body">
                     <p class="card-text">${rows[i].mName}</p>
                     <p class="card-text">${rows[i].classDate}</p>
@@ -29,5 +30,9 @@ function processErrors() {
     console.log('Validation errors');
 }
 
-// Calls viewChar function when the page opens.
-viewAdminModules();
+function mIDFunction(mID){
+    var newMID = mID;
+    localStorage.setItem("newMKey", newMID);
+
+    location.href = "/teacherUpcomingClasses";
+}
