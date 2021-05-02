@@ -115,7 +115,32 @@ INSERT INTO Class (classID, mID, totalStudents, classDate, classStartTime, class
 INSERT INTO Class (classID, mID, totalStudents, classDate, classStartTime, classEndTime) VALUES("C128", "M127", 40, "2021-06-24", "16:00", "17:00");
 INSERT INTO Class (classID, mID, totalStudents, classDate, classStartTime, classEndTime) VALUES("C129", "M128", 40, "2021-06-25", "17:00", "18:00");
 
+--Test Attended User
+INSERT INTO userAttendedClass (sID, classID, classJoinTime, serverJoinTime, attended, reason) VALUES("S123456", "C123", "20:00", "20:00", true, false);
+INSERT INTO userAttendedClass (sID, classID, classJoinTime, serverJoinTime, attended, reason) VALUES("S123456", "C124", "10:00", "11:00", true, false);
+
 --Queries
--- SELECT name, id, finalGrade, COUNT() AS attendance FROM User 
--- JOIN Grade ON User.id = Grade.sID 
--- JOIN userAttendedClass ON User.id = userAttendedClass.sID;
+
+-- SELECT name, mName FROM userAttendedClass 
+-- JOIN User on userAttendedClass.sID = User.id 
+-- JOIN Class USING(classID)
+-- JOIN Module USING(mID)
+-- WHERE sID = "S123456";
+
+-- record.append("{studentName: $1, moduleName: $2}")
+
+-- for(i in record):
+--     const classesAttended = SELECT COUNT(*) FROM userAttendedClass WHERE sID = "S123456";
+--     const totalClasses = SELECT COUNT(*) FROM Class WHERE mID = "M123";
+
+--     var attendanceAsPer = (classAttended / totalCLasses) * 100;
+
+--     record[i].append("attendance: attendanceAsPer")
+
+
+-- -- for(i = 0 ; record.length ; i++ ) {
+-- --     const classesAttended = SELECT COUNT(*) FROM userAttendedClass WHERE sID = "S123456";
+-- --     const totalClasses = SELECT COUNT(*) FROM Class WHERE mID = "M123";
+
+-- --     var attendanceAsPer = (classAttended / totalCLasses) * 100;
+-- -- }
