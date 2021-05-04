@@ -30,6 +30,10 @@ const selectQRCodeInfo = "SELECT * FROM Class WHERE classID = $1;";
 const getUserAttendance = "SELECT name, mName, attended, classDate, classJoinTime FROM userAttendedClass JOIN User on userAttendedClass.sID = User.id JOIN Class USING(classID) JOIN Module USING(mID);";
 
 
+const fs = require('fs');
+const key = fs.readFileSync('./security/key.pem');
+const cert = fs.readFileSync('./security/cert.pem');
+
 
 module.exports = {
     userLogInCheck: function () {
@@ -53,15 +57,19 @@ module.exports = {
     }
 
 }
+const https = require('https');
 
 const app = express();
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(express.static(__dirname + "/"));
-app.listen(3000, function () {
-    console.log('Server started, Hello Hoderiko :)');
-});
+// app.listen(3000, function () {
+//     console.log('Server started, Hello Hoderiko :)');
+// });
+
+
+
 app.use(session({
     secret: 'R2W4BNGUGRLH8V0WTN3URVPNLBDKBR2DD4DB5ELDV8CCTADD5X01JDZBH0BXTJ9I',
     resave: false,
@@ -593,3 +601,13 @@ app.post("/QRCode", function (req, res) {
     });
 
 });
+
+
+
+const server = https.createServer({ key: key, cert: cert }, app);
+
+server.listen(3000, () => { console.log('~~~ Secure Server started, Hello Hoderiko ~~~\n~~ listening on port 3000 ~~') });
+
+require('dns').lookup(require('os').hostname(), function (err, add, fam) {
+    console.log('~ Externally: https://' + add + ':3000 ~');
+})
