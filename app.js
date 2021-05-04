@@ -156,7 +156,7 @@ app.get('/modulesTab', function (req, res) {
     res.sendFile(__dirname + '/HTML/modulesTab.html');
 });
 
-app.get('/qrcode', isAuthenticatedStudent(), isRole(STUDENT), function (req, res) {
+app.get('/scanQrcode', isAuthenticatedStudent(), isRole(STUDENT), function (req, res) {
     res.sendFile(__dirname + "/HTML/studentQrcode.html");
 });
 
@@ -243,7 +243,7 @@ function isAuthenticatedStudent() {
 function isRole(roleRequired) {
     return function (req, res, next) {
         if (userRole != roleRequired) {
-            console.log("Incorrect Role");
+            console.log("Incorrect Role: Was", userRole, ". Expected: ", roleRequired);
             req.logout()
             return res.redirect('/loginHub');
         }
