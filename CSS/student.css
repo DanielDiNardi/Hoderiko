@@ -29,7 +29,7 @@ body{
     position: fixed;
     width: 15%;
     padding-top: 7em;
-    top: 0.1em;
+    top: 0.2em;
     bottom: 0%;
     right: 0%;
     background: rgba(255, 255, 255, 0.0);
@@ -141,6 +141,12 @@ body{
 /* Show the dropdown menu (use JS to add this class to the .dropdown-content container when the user clicks on the dropdown button) */
 .show {
     display: inline-block;
+}
+
+.show a:hover {
+    display: inline-block;
+    background-color: #ddd;
+    width: 100%;
 }
 
 #listHeader {

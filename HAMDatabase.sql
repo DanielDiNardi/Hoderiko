@@ -34,7 +34,7 @@ CREATE TABLE Course(
 );
 
 CREATE TABLE Class(
-    classID VARCHER(50) PRIMARY KEY,
+    classID VARCHAR(50) PRIMARY KEY,
     mID VARCHAR(50),
     totalStudents NUMBER(3),
     classDate DATE,
@@ -44,8 +44,8 @@ CREATE TABLE Class(
 );
 
 CREATE TABLE userAttendedClass(
-    sID VARCHER(50),
-    classID VARCHER(50),
+    sID VARCHAR(50),
+    classID VARCHAR(50),
     classJoinTime TIME,
     serverJoinTime TIME,
     attended BOOLEAN,
@@ -105,3 +105,42 @@ INSERT INTO Grade (mID, sID, finalGrade) VALUES("M125", "S123456", 67);
 INSERT INTO Grade (mID, sID, finalGrade) VALUES("M126", "S123456", 50);
 INSERT INTO Grade (mID, sID, finalGrade) VALUES("M127", "S123456", 53);
 INSERT INTO Grade (mID, sID, finalGrade) VALUES("M128", "S123456", 43);
+
+--Test Classes
+INSERT INTO Class (classID, mID, totalStudents, classDate, classStartTime, classEndTime) VALUES("C123", "M123", 40, "2021-04-28", "20:00", "21:00");
+INSERT INTO Class (classID, mID, totalStudents, classDate, classStartTime, classEndTime) VALUES("C124", "M123", 40, "2021-06-28", "10:00", "11:00");
+INSERT INTO Class (classID, mID, totalStudents, classDate, classStartTime, classEndTime) VALUES("C125", "M124", 40, "2021-06-29", "11:00", "12:00");
+INSERT INTO Class (classID, mID, totalStudents, classDate, classStartTime, classEndTime) VALUES("C126", "M125", 40, "2021-06-21", "14:00", "15:00");
+INSERT INTO Class (classID, mID, totalStudents, classDate, classStartTime, classEndTime) VALUES("C127", "M126", 40, "2021-06-22", "15:00", "16:00");
+INSERT INTO Class (classID, mID, totalStudents, classDate, classStartTime, classEndTime) VALUES("C128", "M127", 40, "2021-06-24", "16:00", "17:00");
+INSERT INTO Class (classID, mID, totalStudents, classDate, classStartTime, classEndTime) VALUES("C129", "M128", 40, "2021-06-25", "17:00", "18:00");
+
+--Test Attended User
+INSERT INTO userAttendedClass (sID, classID, classJoinTime, serverJoinTime, attended, reason) VALUES("S123456", "C123", "20:00", "20:00", true, false);
+INSERT INTO userAttendedClass (sID, classID, classJoinTime, serverJoinTime, attended, reason) VALUES("S123456", "C124", "10:00", "11:00", true, false);
+
+--Queries
+
+-- SELECT name, mName FROM userAttendedClass 
+-- JOIN User on userAttendedClass.sID = User.id 
+-- JOIN Class USING(classID)
+-- JOIN Module USING(mID)
+-- WHERE sID = "S123456";
+
+-- record.append("{studentName: $1, moduleName: $2}")
+
+-- for(i in record):
+--     const classesAttended = SELECT COUNT(*) FROM userAttendedClass WHERE sID = "S123456";
+--     const totalClasses = SELECT COUNT(*) FROM Class WHERE mID = "M123";
+
+--     var attendanceAsPer = (classAttended / totalCLasses) * 100;
+
+--     record[i].append("attendance: attendanceAsPer")
+
+
+-- -- for(i = 0 ; record.length ; i++ ) {
+-- --     const classesAttended = SELECT COUNT(*) FROM userAttendedClass WHERE sID = "S123456";
+-- --     const totalClasses = SELECT COUNT(*) FROM Class WHERE mID = "M123";
+
+-- --     var attendanceAsPer = (classAttended / totalCLasses) * 100;
+-- -- }
