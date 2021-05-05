@@ -9,7 +9,6 @@
         <link rel="stylesheet" href="../CSS/student.css">
     </head>
     <body>
-        <div class="container">
             <div class="header">
                 <div id="topBar">
                     <div class="d-block d-flex justify-content-center">
@@ -29,6 +28,8 @@
                     </div>
                 </div>
             </div>
+            <!-- should be -->
+            <div class="container">
             <div class="jumbotron text-center">
                 <div class="container">
                     <h1 class="jumbotron-heading">Attend a Class!</h1>
@@ -38,9 +39,9 @@
                     <p>
                         
                     </p>
-                    <button id="showDebugbtn" class="btn btn-light">debug-info</button>
+                    <button id="showDebugbtn" class="btn btn-light" style="display: none">debug-info</button>
                 </div>
-                <div class="container" id="show-debug-information">
+                <div class="container" id="show-debug-information" style="display: none;">
                     <h6>DEBUG Information: </h6>
                     <b>Device has camera: </b>
                     <span id="cam-has-camera"></span><br>
@@ -56,15 +57,14 @@
                 </div>
             </div>
                 <div class="col-lg-6">
-                    <!-- Button trigger modal -->
-                    <button type="button" class="btn btn-primary"
-                        id="btnModalProg"> triggermodal manually</button>
-
-                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalCenter">
-                            Launch demo modal
-                          </button>
+                    <!-- Button trigger modal debug-->
+                    <!-- <button type="button" class="btn btn-primary"
+                        id="btnModalProg"> triggermodal manually</button> -->
+                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modalQrCode">
+                        Start Qr Scan
+                    </button>
 <!-- Modal -->
-<div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+<div class="modal fade" id="modalQrCode" tabindex="-1" role="dialog" aria-labelledby="modalQrCodeTitle" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered" role="document">
       <div class="modal-content">
         <div class="modal-header">
@@ -83,7 +83,7 @@
           <video id="qr-video" style="display:none"></video>
                             <br>
                             <label id="labelForCam">
-                                <input id="show-scan-region" type="checkbox">
+                                <input id="show-scan-region" type="checkbox" style="display:none">
                                 Show scan region
                             </label>
         </div>
@@ -97,7 +97,7 @@
                         </button>
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-          <button type="button" class="btn btn-primary">Save changes</button>
+          <!-- <button type="button" class="btn btn-primary">Save changes</button> -->
         </div>
       </div>
     </div>
@@ -237,7 +237,7 @@
                         asdf-group-item-action"><strong>
                             <p class="paddit">Exams</p>
                         </strong></a>
-                    <a href="/qrcode" id="link" class="list-group-item
+                    <a href="/scanQrcode" id="link" class="list-group-item
                         list-group-item-action"><strong>
                             <p class="paddit">Scan Qr Code</p>
                         </strong></a>
@@ -327,12 +327,17 @@
                     $('#ClassStartTime').val(moduleObject.classStartTime);
                     $('#ClassEndTime').val(moduleObject.classEndTime);
                     $('#timeClient').val(Date.now()); 
+
+                    
+                    //close modal video stream, open modal form: 
+                    $('#modalQrCode').modal('hide')
+
                     $('#exampleModal').modal('show');
                     submitShowed = true; 
                     return moduleObject; 
                 }  
         })
-        .catch(ex => console.error(ex));
+        .catch(ex => console.error("error from server while requesting data for id:", ClassId, ". Ex: ", ex));
     
         }
     function setResult(label, result) {
@@ -427,9 +432,10 @@
     $('#exampleModal').on('shown.bs.modal', function () {
         $('#myInput').trigger('focus')
     }); 
-    $('#exampleModalCenter').on('shown.bs.modal', function () {
+
+    $('#modalQrCode').on('shown.bs.modal', function () {
         $('#myInput').trigger('focus')
-      })
+    })
 
     $('#exampleModal').on('hide.bs.modal', function () {
         submitShowed = false; //reset submit viewed; button will work again
@@ -437,8 +443,14 @@
     }); 
     
     $('#exampleModal').modal({ show: false})
-    $('#btnModalProg').on("click", ()=>$('#exampleModal').modal('show'));
 
+    //was used for debug: 
+    //$('#btnModalProg').on("click", ()=>$('#exampleModal').modal('show'));
+
+    $('#modalQrCode').on('hidden.on.modal'), (e)=> {
+        scanner.stop();
+        scanner.$canvas.style.display = 'none';
+    }; 
 
 
 
