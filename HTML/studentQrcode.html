@@ -156,7 +156,7 @@
                       id="ClassEndTime"
                       readonly>
                   </div>
-                  <div class="form-group">
+                  <div class="form-group" style="display: none;">
                     <label for="timeClient">Time of Attendance</label>
                     <input type="text"
                       class="form-control" name="timeClient"
@@ -455,6 +455,16 @@
             .catch(e => setResult(fileQrResult, e || 'No QR code found.'));
     });
     */
+
+$(document).ready(()=> {
+ // if viewport is too small fix form the hard way: 
+ var windowWidth = window.innerWidth;
+ var windowHeight = window.innerHeight;
+//!-- if()
+  
+})
+
+
     </script>
   </body>
 </html>
