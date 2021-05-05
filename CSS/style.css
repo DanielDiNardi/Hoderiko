@@ -2,18 +2,20 @@ body{
     background-image: url("../Images/classroom.png");
     background-size: 100% 100%;
     background-repeat: no-repeat;
-    background-attachment: fixed;
+    background-attachment:fixed;
  
 }
  
  #topBar{
+     min-width: local;
      width: 100%;
      height: auto;
      background: rgba(255, 255, 255, 0.7) ;
  }
  
  #logo{
-     margin-left: 6em;
+    width: auto;
+    margin-left: 6em;
  }
  
  .btn-lg {
@@ -37,7 +39,7 @@ body{
 
 
 #imageFilter{
-    min-width: 100vh;
+    min-width: local;
     width: 100%;
     min-height: 75vh;
     height: 100%;
@@ -57,16 +59,16 @@ body{
     left: 37.5%;
 }
 
-#loginbuttonT:hover {
-    background-color: rgba(92,150,51,0.8);
-
-}
-
 #loginbuttonS {
     height: 65%;
     font-size: 1.5em;
     left: 70%;
     background-color: rgba(44,190,237,0.8);
+}
+
+#loginbuttonT:hover {
+    background-color: rgba(92,150,51,0.8);
+
 }
 
 #loginbuttonS:hover {
@@ -75,4 +77,76 @@ background-color: rgba(46,171,211,0.8);
 
 .bigText{
     font-size: 3em;
+}
+
+/* 
+Different screen sizes
+ */
+
+@media only screen and (min-device-width : 320px) and (max-device-width: 480px) {
+    .body {
+        background-size: 100% 100%;
+        background-repeat: no-repeat;
+        background-attachment: fixed;
+    }
+}
+
+@media only screen and (min-device-width : 320px) and (max-device-width: 480px) {
+    #topBar {
+        width: 100%;
+        height: 6.2em;
+    }
+}
+
+@media only screen and (min-device-width : 320px) and (max-device-width: 480px) {
+    #logo {
+        margin-left: 1em;
+        width: 30%;
+        height: 5em;
+        margin-top: 1em;
+    }
+}
+
+@media only screen and (min-device-width : 320px) and (max-device-width: 480px) {
+    .text-bottom {
+        font-size: 0.7em;
+        margin-top: 1em;
+    }
+}
+
+@media only screen and (min-device-width : 320px) and (max-device-width: 480px) {
+    #title {
+        font-size: 1.8em;
+        margin-top: 1em;
+    }
+}
+
+@media only screen and (min-device-width : 320px) and (max-device-width: 480px) {
+    #loginbuttonS {
+        height: 60%;
+        margin-bottom: 10%;
+        font-size: 0.8em;
+    }
+}
+
+@media only screen and (min-device-width : 320px) and (max-device-width: 480px) {
+    #loginbuttonT {
+        height: 60%;
+        margin-bottom: 10%;
+        font-size: 0.8em;
+    }
+}
+
+@media only screen and (min-device-width : 320px) and (max-device-width: 480px) {
+    #loginbuttonA {
+        height: 60%;
+        margin-bottom: 10%;
+        font-size: 0.8em;
+    }
+}
+
+@media only screen and (min-device-width : 320px) and (max-device-width: 480px) {
+    .bigText {
+        font-size: 2em;
+    }
 }
