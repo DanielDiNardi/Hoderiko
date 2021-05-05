@@ -151,3 +151,23 @@ Different screen sizes
     }
 }
 
+@media only screen and (min-device-width : 320px) and (max-device-width: 480px) {
+.btn-lg {
+    width: 8em;
+    height: 6em;
+    position: absolute;
+    right: 0;
+    font-size: 1em;
+    background-color: rgba(65,105,225,0.8);
+    color: white;
+    clip-path: polygon(0 0, 0 100%, 100% 100%, 100% 15%, 90% 0);
+    border-radius: 0 !important;
+    z-index: fixed;
+    display: inline-block;
+    bottom: 1em;
+ } 
+
+ .btn-lg:hover {
+     background-color: rgba(61,93,190,0.8);
+ }
+}
