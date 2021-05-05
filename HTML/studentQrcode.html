@@ -29,16 +29,15 @@
       </div>
     </div>
     <!-- should be -->
-    <div class="container">
+    <div>
       <div class="jumbotron text-center">
         <div class="container">
-          <h1 class="jumbotron-heading">Attend a Class!</h1>
-          <p class="lead text-muted">Scan the QR Code showed by
-            the
-            Teacher to state your attendance.</p>
-          <p>
-
-          </p>
+          <h1 class="jumbotron-heading">Attend Class!</h1>
+          <hr>
+          <button type="button" class="btn btn-primary" data-toggle="modal"
+            data-target="#modalQrCode">
+            Scan
+          </button>
           <button id="showDebugbtn" class="btn btn-light" style="display: none">debug-info</button>
         </div>
         <div class="container" id="show-debug-information" style="display:
@@ -61,17 +60,13 @@
         <!-- Button trigger modal debug-->
         <!-- <button type="button" class="btn btn-primary"
                         id="btnModalProg"> triggermodal manually</button> -->
-        <button type="button" class="btn btn-primary" data-toggle="modal"
-          data-target="#modalQrCode">
-          Start Qr Scan
-        </button>
         <!-- Modal -->
         <div class="modal fade" id="modalQrCode" tabindex="-1" role="dialog"
           aria-labelledby="modalQrCodeTitle" aria-hidden="true">
           <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content">
               <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLongTitle">Modal title</h5>
+                <h5 class="modal-title" id="exampleModalLongTitle">Scan Qr Code</h5>
                 <button type="button" class="close" data-dismiss="modal"
                   aria-label="Close">
                   <span aria-hidden="true">&times;</span>
@@ -86,7 +81,7 @@
                 </div>
                 <video id="qr-video" style="display:none"></video>
                 <br>
-                <label id="labelForCam">
+                <label id="labelForCam" style="display: none;">
                   <input id="show-scan-region" type="checkbox"
                     style="display:none">
                   Show scan region
@@ -179,7 +174,7 @@
           </div>
         </div>
       </div>
-      <main>
+      <div>
         <div class="container">
           <!-- <div>
                             <video id="qr-video"></video>
@@ -190,15 +185,13 @@
                             </label>
                         </div> -->
           <div>
-            <button id="flash-toggle" style="visibility:
-              hidden;">📸 Flash: <span
-                id="flash-state" style="visibility:
-                hidden;">off</span></button>
+            <button id="flash-toggle" style="display:none;">📸 Flash: <span
+                id="flash-state" style="display:none;">off</span></button>
             <!-- <button id="flash-toggle">📸 Flash: <span id="flash-state">off</span></button> -->
           </div>
           <div>
             <select id="inversion-mode-select"
-              style="visibility: hidden;">
+              style="display:none;">
               <option value="original">Scan original (dark QR
                 code
                 on
@@ -211,9 +204,8 @@
             <br>
           </div>
 
-          <button id="start-button" style="visibility: hidden;">Start</button>
-          <button id="stop-button" style="visibility: hidden;">Stop</button>
-          <hr>
+          <button id="start-button" style="display:none;">Start</button>
+          <button id="stop-button" style="display:none;">Stop</button>
 
           <!-- <h1>Scan from File:</h1>
                 <input type="file" id="file-selector">
@@ -222,22 +214,21 @@
         </div>
 
 
-        <div class="sidebar">
-          <a href="/studentDashboard" id="link" class="list-group-item
-            list-group-item-action"><strong><p class="paddit">Dashboard</p></strong></a>
-          <a href="/studentModules" id="link" class="list-group-item
-            list-group-item-action"><strong><p class="paddit">Modules</p></strong></a>
-          <a href="/studentGrades" id="link" class="list-group-item
-            list-group-item-action"><strong><p class="paddit">Grades</p></strong></a>
-          <a href="/studentExams" id="link" class="list-group-item
-            list-group-item-action"><strong><p class="paddit">Exams</p></strong></a>
-          <a href="/scanQrcode" id="link" class="list-group-item
-            list-group-item-action"><strong><p class="paddit">Scan QR Code</p></strong></a>
-        </div>
-      </main>
 
+      </div>
     </div>
-
+    <div class="sidebar">
+      <a href="/studentDashboard" id="link" class="list-group-item
+        list-group-item-action"><strong><p class="paddit">Dashboard</p></strong></a>
+      <a href="/studentModules" id="link" class="list-group-item
+        list-group-item-action"><strong><p class="paddit">Modules</p></strong></a>
+      <a href="/studentGrades" id="link" class="list-group-item
+        list-group-item-action"><strong><p class="paddit">Grades</p></strong></a>
+      <a href="/studentExams" id="link" class="list-group-item
+        list-group-item-action"><strong><p class="paddit">Exams</p></strong></a>
+      <a href="/scanQrcode" id="link" class="list-group-item
+        list-group-item-action"><strong><p class="paddit">Scan QR Code</p></strong></a>
+    </div>
     <!-- JavaScript Bundle with Popper -->
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"
       integrity="sha384-vtXRMe3mGCbOeY7l30aIg8H9p3GdeSe4IFlP6G8JMa7o7lXvnz3GFKzPxzJdPfGK"
@@ -442,8 +433,14 @@
     $('#modalQrCode').on('hidden.on.modal'), (e)=> {
         scanner.stop();
         scanner.$canvas.style.display = 'none';
+        console.log("modal window closes: ")
+        console.log(e); 
     }; 
 
+    $('#modalQrCode').on('hide.bs.modal', function (e) {
+      scanner.$canvas.style.display = 'none';
+      scanner.stop();
+    })
 
 
     // ####### File Scanning #######

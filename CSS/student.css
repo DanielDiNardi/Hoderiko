@@ -1,23 +1,23 @@
-body{
+body {
     background-image: url("../Images/tudublin.jpg");
     background-size: 100% 100%;
     background-repeat: no-repeat;
-    background-attachment:fixed;
+    background-attachment: fixed;
 }
- 
- #topBar{
-     min-width: local;
-     width: 100%;
-     height: 7.2em;
-     background: rgba(255, 255, 255, 0.9) ;
- }
- 
- #logo{
-     width: auto;
-     margin-left: 6em;
- }
 
- .loginFormCont{
+#topBar {
+    min-width: local;
+    width: 100%;
+    height: 7.2em;
+    background: rgba(255, 255, 255, 0.9);
+}
+
+#logo {
+    width: auto;
+    margin-left: 6em;
+}
+
+.loginFormCont {
     background: rgba(255, 255, 255, 0.9);
     margin-top: 1em;
     bottom: 0;
@@ -25,7 +25,7 @@ body{
     margin-left: auto;
     margin-right: auto;
     padding: 5%;
- }
+}
 
 .sidebar {
     position: fixed;
@@ -50,7 +50,7 @@ body{
 }
 
 #link:hover {
-    background: rgba(61,93,190,0.8);
+    background: rgba(61, 93, 190, 0.8);
     color: black;
 }
 
@@ -58,13 +58,13 @@ body{
     padding-top: 2em;
 }
 
-#listHeader{
+#listHeader {
     background: rgba(255, 255, 255, 0.7);
     margin-left: 12em;
     margin-right: 12em;
     margin-top: 0;
     height: 100%;
-    min-height: 80vh;
+    min-height: 0;
 }
 
 #moduleCard {
@@ -105,27 +105,31 @@ body{
 }
 
 /* Dropdown button on hover & focus */
+
 .dropbtn:hover, .dropbtn:focus {
     background-color: #2980B9;
 }
 
 /* The container <div> - needed to position the dropdown content */
+
 .dropdown {
     position: relative;
     display: inline-block;
 }
 
 /* Dropdown Content (Hidden by Default) */
+
 .dropdown-content {
     display: none;
     position: absolute;
     background-color: #f1f1f1;
     min-width: 160px;
-    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
     z-index: 1;
 }
 
 /* Links inside the dropdown */
+
 .dropdown-content a {
     color: black;
     padding: 12px 16px;
@@ -134,6 +138,7 @@ body{
 }
 
 /* Change color of dropdown links on hover */
+
 .dropdown-content a:hover {
     background-color: #ddd;
     padding: 12px 16px;
@@ -142,6 +147,7 @@ body{
 }
 
 /* Show the dropdown menu (use JS to add this class to the .dropdown-content container when the user clicks on the dropdown button) */
+
 .show {
     display: inline-block;
 }
@@ -173,46 +179,32 @@ body{
 Different screen sizes
  */
 
-@media only screen and (min-device-width : 320px) and (max-device-width: 480px) {
+/* tiny tiny screen*/
+
+@media only screen and (min-device-width: 320px) and (max-device-width: 480px) {
     .body {
         background-size: 100% 100%;
         background-repeat: no-repeat;
         background-attachment: fixed;
     }
-}
-
-@media only screen and (min-device-width : 320px) and (max-device-width: 480px) {
     #topBar {
         width: 100%;
         height: 6.2em;
     }
-}
-
-@media only screen and (min-device-width : 320px) and (max-device-width: 480px) {
     #logo {
         margin-left: 1em;
         width: 30%;
         height: 4.5em;
         margin-top: 1em;
     }
-}
-
-@media only screen and (min-device-width : 320px) and (max-device-width: 480px) {
     .text-bottom {
         font-size: 0.7em;
         margin-top: 1em;
     }
-}
-
-@media only screen and (min-device-width : 320px) and (max-device-width: 480px) {
     #title {
         font-size: 1.8em;
         margin-top: 1em;
     }
-}
-
-
-@media only screen and (min-device-width : 320px) and (max-device-width: 480px) {
     .sidebar {
         position: fixed;
         width: 30%;
@@ -222,17 +214,10 @@ Different screen sizes
         right: 1%;
         font-size: 0.5em;
     }
-}
-
-@media only screen and (min-device-width : 320px) and (max-device-width: 480px) {
     .dropdown {
         position: relative;
         display: inline-block;
     }
-}
-
-
-@media only screen and (min-device-width : 320px) and (max-device-width: 480px) {
     .dropbtn {
         background-color: #3498DB;
         color: white;
@@ -242,79 +227,52 @@ Different screen sizes
         cursor: pointer;
         margin-left: auto;
     }
-}
-
-@media only screen and (min-device-width : 320px) and (max-device-width: 480px) {
     .dropbtn:hover, .dropbtn:focus {
         background-color: #2980B9;
         padding: 12px;
         font-size: 0.8em;
     }
-}
-
-
-@media only screen and (min-device-width : 320px) and (max-device-width: 480px) {
     .dropdown-content {
         display: none;
         position: absolute;
         background-color: #f1f1f1;
         /* min-width: 160px; */
-        box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+        box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
         z-index: 1;
         font-size: 0.8em;
         width: 60%;
     }
-}
-
-@media only screen and (min-device-width : 320px) and (max-device-width: 480px) {
     .dropdown-content a {
         color: black;
         padding: 12px 16px;
         text-decoration: none;
         display: inline-block;
     }
-}
-
-@media only screen and (min-device-width : 320px) and (max-device-width: 480px) {
     .dropdown-content a:hover {
         background-color: #ddd;
         padding: 12px 16px;
         text-decoration: none;
         display: inline-block;
     }
-}
-
-@media only screen and (min-device-width : 320px) and (max-device-width: 480px) {
     .show {
         display: inline-block;
     }
-}
-
-@media only screen and (min-device-width : 320px) and (max-device-width: 480px) {
     .show a {
         display: inline-block;
     }
-}
-
-@media only screen and (min-device-width : 320px) and (max-device-width: 480px) {
     .show a:hover {
         display: inline-block;
         background-color: #ddd;
         width: 100%;
     }
-}
-
-
-#gradeCard {
-    min-width: 12rem;
-    height: 12em;
-    margin-left: 3em;
-    margin-top: 2em;
-    margin-bottom: 2em;
-    margin-right: 3em;
-}
-
-@media only screen and (min-device-width : 320px) and (max-device-width: 480px) {
+    #gradeCard {
+        min-width: 12rem;
+        height: 12em;
+        margin-left: 3em;
+        margin-top: 2em;
+        margin-bottom: 2em;
+        margin-right: 3em;
+    }
     #moduleCard {
         min-width: 12em;
         width: auto;
@@ -325,9 +283,6 @@ Different screen sizes
         margin-bottom: 2em;
         font-size: 0.5em;
     }
-}
-
-@media only screen and (min-device-width : 320px) and (max-device-width: 480px) {
     #gradeCard {
         min-width: 10.5em;
         min-height: 10.5em;
@@ -336,9 +291,6 @@ Different screen sizes
         margin-bottom: 2em;
         font-size: 0.5em;
     }
-}
-
-@media only screen and (min-device-width : 320px) and (max-device-width: 480px) {
     #examCard {
         min-width: 12em;
         min-height: 17em;
@@ -346,5 +298,33 @@ Different screen sizes
         margin-top: 2em;
         margin-bottom: 2em;
         font-size: 0.5em;
+    }
+    .jumbotron {
+        margin-left: 4.5em;
+        z-index: 1;
+        margin-right: 7.5em;
+        /* width: min-content;*/
+    }
+    .lead {
+        font-size: 1em;
+    }
+    .jumbotron-heading {
+        font-size: 1.5em;
+    }
+    #button-for-scan {
+        font-size: 0.8em;
+        min-width: 0.8em;
+    }
+    #button-stop {
+        font-size: 0.8em;
+        min-width: 0.8em;
+    }
+}
+
+@media screen and (min-device-width: 480px) {
+    .jumbotron {
+        margin-right: 20%;
+        padding: 4rem 2rem;
+        margin-left: 20%;
     }
 }
