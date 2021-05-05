@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="en">
-
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -37,14 +36,7 @@
                         the
                         Teacher to state your attendance.</p>
                     <p>
-                        <button id="button-for-scan" type="button"
-                            class="btn
-                            btn-primary
-                            my-2">Scan QR Code
-                        </button>
-                        <button id="button-stop" type="stop" class="btn
-                            btn-secondary my-2">Stop
-                        </button>
+                        
                     </p>
                     <button id="showDebugbtn" class="btn btn-light">debug-info</button>
                 </div>
@@ -63,38 +55,55 @@
                     <br>
                 </div>
             </div>
-
-            <!-- <div class="row marketing">
-                <div class="col-lg-6">
-                    <div id="divsubmitForm" style="visibility: visible;">
-                        <form method="POST" id="submitAttendanceForm"
-                            action="/postAttendance">
-                            <div class="form-group">
-                                <label for="meetingId">Global Classroom Example</label>
-                                <input type="text" class="form-control"
-                                    id="meetingId" name="email" readonly>
-                            </div>
-                            <div class="form-group">
-                                <label for="ClassId">Class Meeting 1 Example</label>
-                                <input type="text" class="form-control"
-                                    id="ClassId"
-                                    name="ClassId" readonly>
-                            </div>
-                            <button id="submitLoginBtn" type="submit" class="btn
-                                btn-primary">Attend!</button>
-                        </form>
-                    </div>
-                </div> -->
-
                 <div class="col-lg-6">
                     <!-- Button trigger modal -->
                     <button type="button" class="btn btn-primary"
                         id="btnModalProg"> triggermodal manually</button>
-                    <!-- <button type="button" class="btn btn-primary"
-                        data-toggle="modal" data-target="#exampleModal">
-                        Launch demo modal
-                    </button> -->
-                    <!-- Modal -->
+
+                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalCenter">
+                            Launch demo modal
+                          </button>
+<!-- Modal -->
+<div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLongTitle">Modal title</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <!-- here goes video -->
+          <div id="videoRegion">
+            <div id="videoPlace">
+
+            </div>
+          </div>
+          <video id="qr-video" style="display:none"></video>
+                            <br>
+                            <label id="labelForCam">
+                                <input id="show-scan-region" type="checkbox">
+                                Show scan region
+                            </label>
+        </div>
+        <button id="button-for-scan" type="button"
+                            class="btn
+                            btn-primary
+                            my-2">Scan QR Code
+                        </button>
+                        <button id="button-stop" type="stop" class="btn
+                            btn-secondary my-2">Stop
+                        </button>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-primary">Save changes</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+                    <!-- Modal form-->
                     <div class="modal fade" id="exampleModal" tabindex="-1"
                         role="dialog" aria-labelledby="exampleModalLabel"
                         aria-hidden="true">
@@ -168,14 +177,14 @@
                 </div>
                 <main>
                     <div class="container">
-                        <div>
+                        <!-- <div>
                             <video id="qr-video"></video>
                             <br>
                             <label>
                                 <input id="show-scan-region" type="checkbox">
                                 Show scan region
                             </label>
-                        </div>
+                        </div> -->
                         <div>
                             <button id="flash-toggle" style="visibility:
                                 hidden;">📸 Flash: <span
@@ -353,7 +362,8 @@
         camQrResult.textContent = error;
         camQrResult.style.color = 'inherit';
         console.error
-    });
+    }, 
+    );
 
     function StartScanning(){
         scanner.start(); 
@@ -372,8 +382,11 @@
             });
         });
     }
-
+    
     document.getElementById('button-for-scan').addEventListener('click', (e)=>{
+        const label = document.getElementById('labelForCam');
+        label.parentNode.insertBefore(scanner.$canvas, label.nextSibling);
+        scanner.$canvas.style.display = 'block';
         StartScanning(); 
     })
     document.getElementById('show-scan-region').addEventListener('change', (e) => {
@@ -381,6 +394,8 @@
         const label = input.parentNode;
         label.parentNode.insertBefore(scanner.$canvas, label.nextSibling);
         scanner.$canvas.style.display = input.checked ? 'block' : 'none';
+        //add show small window here: 
+
     });
 
     /* document.getElementById('inversion-mode-select').addEventListener('change', event => {
@@ -393,8 +408,11 @@
 
     document.getElementById('stop-button').addEventListener('click', () => {
         scanner.stop();
+        scanner.$canvas.style.display = 'none';
+
     });
     document.getElementById('button-stop').addEventListener('click', () => {
+        scanner.$canvas.style.display = 'none';
         scanner.stop();
     });
 
@@ -409,10 +427,15 @@
     $('#exampleModal').on('shown.bs.modal', function () {
         $('#myInput').trigger('focus')
     }); 
+    $('#exampleModalCenter').on('shown.bs.modal', function () {
+        $('#myInput').trigger('focus')
+      })
+
     $('#exampleModal').on('hide.bs.modal', function () {
         submitShowed = false; //reset submit viewed; button will work again
 
     }); 
+    
     $('#exampleModal').modal({ show: false})
     $('#btnModalProg').on("click", ()=>$('#exampleModal').modal('show'));
 
