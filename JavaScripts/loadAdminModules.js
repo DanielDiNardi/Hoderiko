@@ -1,6 +1,6 @@
 // Sends an empty post to the server to get the character information.
 function viewAdminModules(){
-    const post = $.post('http://localhost:3000/Modules', 0);
+    const post = $.post('/Modules', 0);
     console.log("Inside viewAdminModules func");
     post.done(processRows);
     post.fail(processErrors);

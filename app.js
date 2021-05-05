@@ -5,9 +5,21 @@ const db = new sqlite3.Database('HAMDatabase.db');
 const passport = require('passport');
 const session = require('express-session');
 const LocalStrategy = require('passport-local').Strategy;
+const createCSVWriter = require('csv-writer').createObjectCsvWriter;
+const csvWriter = createCSVWriter({
+    path: 'report.csv',
+    header: [
+        { id: 'Name', title: 'NAME' },
+        { id: 'ModuleName', title: 'MODULENAME' },
+        { id: 'Attended', title: 'ATTENDANCE' },
+        { id: 'classDate', title: 'CLASSDATE' },
+        { id: 'classJoinTime', title: 'CLASSJOINDATE' }
+    ]
+});
 
 var userID;
 var userRole;
+const record = [];
 const ADMIN = 'ROLE.ADMIN';
 const TEACHER = 'ROLE.TEACHER';
 const STUDENT = 'ROLE.STUDENT';
@@ -54,9 +66,50 @@ module.exports = {
 
     selectGradesByStudentCheck: function () {
         return selectGradesByStudent;
-    }
+    },
+
+    selectModulesByTeacherCheck: function () {
+        return selectModulesByTeacher;
+    },
+
+    selectTeacherStudentGradesCheck: function () {
+        return selectTeacherStudentGrades;
+    },
+
+    selectExamsByTeacherCheck: function () {
+        return selectExamsByTeacher;
+    },
+
+    selectAllModulesCheck: function () {
+        return selectAllModules;
+    },
+
+    selectAllStudentsCheck: function () {
+        return selectAllStudents;
+    },
+
+    selectAllTeachersCheck: function () {
+        return selectAllTeachers;
+    },
+
+    confirmAttendanceToBeDoneCheck: function () {
+        return confirmAttendanceToBeDone;
+    },
+
+    selectUpcomingClassesByTeacherCheck: function () {
+        return selectUpcomingClassesByTeacher;
+    },
+
+    selectQRCodeInfoCheck: function () {
+        return selectQRCodeInfo;
+    },
+
+    getUserAttendanceCheck: function () {
+        return getUserAttendance;
+    },
 
 }
+
 const https = require('https');
 
 const app = express();

@@ -1,7 +1,7 @@
 // Sends an empty post to the server to get the character information.
 function viewAdminModules(){
     var newMID = localStorage.getItem("newMKey");
-    const post = $.post('http://localhost:3000/teacherUpcomingClasses', {moduleID: newMID});
+    const post = $.post('/teacherUpcomingClasses', {moduleID: newMID});
     console.log("Inside viewAdminModules func");
     post.done(processRows);
     post.fail(processErrors);

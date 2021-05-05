@@ -1,6 +1,6 @@
 // Sends an empty post to the server to get the character information.
 function viewTeacherStudentGrades(){
-    const post = $.post('http://localhost:3000/teacherStudentGrades', 0);
+    const post = $.post('/teacherStudentGrades', 0);
     console.log("Inside viewTeacherStudentGrades func");
     post.done(processRows);
     post.fail(processErrors);
