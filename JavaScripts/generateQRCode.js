@@ -3,7 +3,7 @@ var counter = 0;
 function getClassData(){
 	var newClassID = localStorage.getItem("newClassKey");
     console.log(newClassID);
-    const post = $.post('http://localhost:3000/QRCode', {classID :newClassID});
+    const post = $.post('/QRCode', {classID :newClassID});
     if(counter == 0)
     {
         post.done(processRows);
