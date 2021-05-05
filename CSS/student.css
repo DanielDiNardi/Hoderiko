@@ -58,13 +58,14 @@ body{
     padding-top: 2em;
 }
 
-#listHeader{
+#listHeader {
     background: rgba(255, 255, 255, 0.7);
     margin-left: 12em;
     margin-right: 12em;
     margin-top: 0;
     height: 100%;
-    min-height: 80vh;
+    min-height: 0;
+    min-width: 0;
 }
 
 #moduleCard {
@@ -346,5 +347,50 @@ Different screen sizes
         margin-top: 2em;
         margin-bottom: 2em;
         font-size: 0.5em;
+    }
+}
+
+@media only screen and (min-device-width : 320px) and (max-device-width: 480px) {
+    .jumbotron {
+        margin-left: auto;
+        z-index: 1;
+        margin-right: auto;
+        width: min-content;
+    }
+}
+
+
+@media only screen and (min-device-width : 320px) and (max-device-width: 480px) {
+    .lead {
+        font-size: 1em;
+    }
+}
+
+@media only screen and (min-device-width : 320px) and (max-device-width: 480px) {
+    .jumbotron-heading {
+        font-size: 1.5em;
+    }
+}
+
+@media only screen and (min-device-width : 320px) and (max-device-width: 480px) {
+    #button-for-scan {
+        font-size: 0.8em;
+        min-width: 0.8em;
+    }
+}
+
+@media only screen and (min-device-width : 320px) and (max-device-width: 480px) {
+    #button-stop {
+        font-size: 0.8em;
+        min-width: 0.8em;
+    }
+}
+
+@media only screen and (min-device-width : 320px) and (max-device-width: 480px) {
+    #listHeader {
+        margin-left: auto;
+        margin-right: auto;
+        margin-top: 0;
+        width: 0px;
     }
 }
