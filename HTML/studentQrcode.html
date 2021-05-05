@@ -189,9 +189,67 @@
                         </div>
                     </div>
                 </div>
+<<<<<<< HEAD
                 <main>
                     <div class="container">
                         <div>
+=======
+                <div class="modal-body">
+                  <div class="form-group">
+                    <label for="moduleID">Module e.g. global
+                      Classroom</label>
+                    <input type="text" class="form-control"
+                      id="moduleID" name="moduleId"
+                      readonly>
+                  </div>
+                  <div class="form-group">
+                    <label for="classID">classID</label>
+                    <input type="text"
+                      class="form-control" id="classID" name="classId"
+                      readonly>
+                  </div>
+                  <div class="form-group">
+                    <label for="classDate">classDate</label>
+                    <input type="text"
+                      class="form-control" id="classDate" name="classDate"
+                      readonly>
+                  </div>
+                  <div class="form-group">
+                    <label for="ClassStartTime">ClassStartTime</label>
+                    <input type="text"
+                      class="form-control"
+                      id="ClassStartTime" name="classStartTime"
+                      readonly>
+                  </div>
+                  <div class="form-group">
+                    <label for="ClassEndTime">ClassEndTime</label>
+                    <input type="text"
+                      class="form-control" name="ClassEndTime"
+                      id="ClassEndTime"
+                      readonly>
+                  </div>
+                  <div class="form-group" style="display: none;">
+                    <label for="timeClient">Time of Attendance</label>
+                    <input type="text"
+                      class="form-control" name="timeClient"
+                      id="timeClient"
+                      readonly>
+                  </div>
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn
+                    btn-secondary" data-dismiss="modal">Cancel</button>
+                  <button type="submit" id="submit" class="btn btn-primary">Attend</button>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+      <div>
+        <div class="container">
+          <!-- <div>
+>>>>>>> ef65c2a80dbec410f003407c38d8ee35bdc133f2
                             <video id="qr-video"></video>
                             <br>
                             <label>
@@ -454,6 +512,16 @@
             .catch(e => setResult(fileQrResult, e || 'No QR code found.'));
     });
     */
+
+$(document).ready(()=> {
+ // if viewport is too small fix form the hard way: 
+ var windowWidth = window.innerWidth;
+ var windowHeight = window.innerHeight;
+//!-- if()
+  
+})
+
+
     </script>
     </body>
 </html>
